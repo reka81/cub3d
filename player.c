@@ -1,0 +1,65 @@
+#include "cub3d.h"
+
+void draw_line(t_player *player, void *mlx , void *win)
+{
+    (void)mlx;
+    (void)win;
+    // player->rotationAngle += player->turn_direction *player->rotationspeed;
+    int line_length = 30;  // Length of the line
+
+    // Draw the line from player's position (x, y) to the calculated endpoint
+    mlx_pixel_put(player->mlx, player->win, player->x, player->y, 0xFFFFFF); // Player position
+    for (int i = 0; i <= line_length; i++) {
+        double pixel_x = player->x + cos(player->rotationAngle) * i;
+        double pixel_y = player->y - sin(player->rotationAngle) * i;
+        mlx_pixel_put(player->mlx, player->win, (int)pixel_x, (int)pixel_y, 0xFF0000); // Line pixels
+    }
+}
+
+int its_a_wall(double x, double y, t_player *player)
+{
+    int check_x = x / 32;
+    int check_y = y / 32;
+    // printf("x:%d y:%d char:%c\n", check_x, check_y, player->staticArray[check_y][check_x]);
+    if(player->staticArray[check_y][check_x] == '1')
+        return(1);
+    else
+        return(0);
+}
+
+void player_init(t_player *player, char staticArray[10][17], void *mlx, void *win)
+{
+    player->x = 32 * 15 /2;
+    player->y = 32 * 10 /2;
+    player->radius = 3;
+    player->turn_direction = 0;
+    player->walkdirection = 0;
+    player->rotationAngle = M_PI / 2;
+    player->movespeed = 4.0;
+    player->rotationspeed = (M_PI / 20);
+    player->staticArray = staticArray;
+    player->win = win;
+    player->mlx = mlx;
+}
+
+void draw_player(t_player *player, void *win, void *mlx)
+{
+    int i = -player->radius;
+    int j = -player->radius;
+    int x= 0;
+    int y = 0;
+    while(i < player->radius)
+    {
+        j = -player->radius;
+            while (j < player->radius)
+            {
+                x = player->x + i;
+                y = player->y + j;
+                if ((i * i + j * j) <= (player->radius * player->radius))
+                    mlx_pixel_put(mlx, win, x, y , 0xFFFFFF); // square_understand
+            j++;
+            }
+        i++;
+    }
+    draw_line(player, win, mlx);
+}
