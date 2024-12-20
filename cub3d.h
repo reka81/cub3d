@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 #define FOV_ANGLE (60 * (M_PI / 180))
@@ -13,10 +14,23 @@ typedef struct s_ray{
     double ray_angle;
     double wallhitx;
     double wallhity;
+    double vertwallhitx;
+    double vertwallhity;
     int downward_ray;
     int upward_ray;
     int left_ray;
     int right_ray;
+    double distance;
+    int hit_vertical;
+    //new
+    double x_interecept;
+    double y_interecept;
+    double xstep;
+    double y_step;
+    double next_touch_y;
+    double next_touch_x;
+    int wall_found;
+    int vert_wall_found;
 }t_ray;
 typedef struct s_player{
     double x;

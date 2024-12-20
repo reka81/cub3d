@@ -30,7 +30,7 @@ int update_map(t_player *player)
     draw_player(player, player->win, player->mlx);
     ray = cast_rays(player);
     player->rays = ray;
-    while (i < 1)    
+    while (i < 1)
     {
         render(player, player->rays, i);
         i++;

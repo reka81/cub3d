@@ -18,8 +18,9 @@ void draw_line(t_player *player, void *mlx , void *win)
 
 int its_a_wall(double x, double y, t_player *player)
 {
-    int check_x = x / 32;
-    int check_y = y / 32;
+    
+    int check_x = (int)x / 32;
+    int check_y = (int)y / 32;
     // printf("x:%d y:%d char:%c\n", check_x, check_y, player->staticArray[check_y][check_x]);
     if(player->staticArray[check_y][check_x] == '1')
         return(1);
@@ -56,7 +57,7 @@ void draw_player(t_player *player, void *win, void *mlx)
                 x = player->x + i;
                 y = player->y + j;
                 if ((i * i + j * j) <= (player->radius * player->radius))
-                    mlx_pixel_put(mlx, win, x, y , 0xFFFFFF); // square_understand
+                    mlx_pixel_put(mlx, win, x, y , 0xFFFFFF); 
             j++;
             }
         i++;
