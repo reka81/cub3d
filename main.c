@@ -31,8 +31,8 @@ int main()
     player_init(player, staticArray, mlx, win);
     draw_image(staticArray, mlx, win);
     draw_player(player, win, mlx);
-    mlx_hook(win, 2, 0, &update_player, player);
-    mlx_hook(win, 3, 0 , &update_player2, player);
-    mlx_loop_hook(mlx, &update_map, player);
+    // mlx_hook(win, 2, 0, &update_player, player);
+    // mlx_hook(win, 3, 0 , &update_player2, player);
+    // mlx_loop_hook(mlx, &update_map, player);
     mlx_loop(mlx);
 }

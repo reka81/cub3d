@@ -12,11 +12,17 @@ void draw_ray_lines(t_player * player, t_ray *ray, int j)
 }
 double distance_between(double player_x, double player_y, double wall_hitx, double wall_hity)
 {
-    // printf("%f--%f--%f---%f\n", player_x, player_y, wall_hitx, wall_hity);
     return(sqrt((player_x - wall_hitx) * (player_x - wall_hitx) + (player_y - wall_hity) * (player_y - wall_hity)));
 }
 void check_horizontal_inter(t_player *player, t_ray *rays, int i)
 {
+    rays[i].y_step = 0;
+    rays[i].xstep = 0;
+    rays[i].next_touch_y = 0;
+    rays[i].next_touch_x = 0;
+    rays[i].x_interecept = 0;
+    rays[i].y_interecept = 0;
+    rays[i].wall_found = 0;
     rays[i].y_interecept = floor(player->y / 32) * 32;
     if(rays[i].downward_ray == 1)
         rays[i].y_interecept += 32;
@@ -31,13 +37,14 @@ void check_horizontal_inter(t_player *player, t_ray *rays, int i)
         rays[i].xstep *= -1;
     rays[i].next_touch_x = rays[i].x_interecept;
     rays[i].next_touch_y = rays[i].y_interecept;
-    // if (rays[i].upward_ray == 1)
-    // {
-    //     temp_next_touch--;       // was to make sure the ray is inside a square but ended out figuring it should be incremented not decremented
-    // }
     while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 32 * 15 && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 32 * 10)
     {
-        if(its_a_wall(rays[i].next_touch_x,  rays[i].next_touch_y, player))
+        double y_check = rays[i].next_touch_y;
+        if (rays[i].upward_ray == 1)
+        {
+            y_check--;      
+        }
+        if(its_a_wall(rays[i].next_touch_x,  y_check, player) || rays[i].next_touch_y == 32)
         {
             rays[i].wall_found = 1;
             rays[i].wallhitx = rays[i].next_touch_x;
@@ -48,31 +55,49 @@ void check_horizontal_inter(t_player *player, t_ray *rays, int i)
         rays[i].next_touch_y += rays[i].y_step;
     }
 }
+int its_a_wall2(double x, double y, t_player *player)
+{
+    int check_x = x / 32;
+    int check_y = y / 32;
+
+    if(player->staticArray[check_y][check_x] == '1')
+        return(1);
+    else
+        return(0);
+}
+
 void check_vertical_inter(t_player *player, t_ray *rays, int i)
 {
-    rays->y_step = 0;
-    rays->next_touch_y = 0;
-    rays->next_touch_x = 0;
-
+    double x_check;
+    rays[i].y_step = 0;
+    rays[i].xstep = 0;
+    rays[i].next_touch_y = 0;
+    rays[i].next_touch_x = 0;
+    rays[i].x_interecept = 0;
+    rays[i].y_interecept = 0;
+    rays[i].vert_wall_found = 0;
+    
     rays[i].x_interecept = floor(player->x / 32) * 32;
     if(rays[i].right_ray == 1)
         rays[i].x_interecept += 32;
-    rays[i].y_interecept = player->y + (rays[i].x_interecept - player->x) * tan(rays[i].ray_angle);
+    rays[i].y_interecept = player->y + (player->x - rays[i].x_interecept) * tan(rays[i].ray_angle);
     rays[i].xstep = 32;
-    if(rays[i].left_ray == 1)
-        rays[i].xstep *= - 1;
+    if(rays[i].left_ray == 1)  
+        rays[i].xstep *= -1;
     rays[i].y_step = 32 * tan(rays[i].ray_angle);
-    if(rays[i].upward_ray == 1 && rays[i].y_step > 0)
+    if(rays[i].upward_ray == 1 && rays[i].y_step > 0) 
         rays[i].y_step *= -1;
     if(rays[i].downward_ray == 1 && rays[i].y_step < 0)
         rays[i].y_step *= -1;
     rays[i].next_touch_x = rays[i].x_interecept;
     rays[i].next_touch_y = rays[i].y_interecept;
-    // if (rays[i].left_ray == 1)
-    //     next_touch_x--;
     while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 32 * 15 && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 32 * 10)
     {
-        if(its_a_wall(rays[i].next_touch_x, rays[i].next_touch_y, player))
+        x_check = rays[i].next_touch_x;
+        if (rays[i].left_ray == 1)
+            x_check--;
+
+        if(its_a_wall2(x_check, rays[i].next_touch_y, player))
         {
             rays[i].vert_wall_found = 1;
             rays[i].vertwallhitx = rays[i].next_touch_x;
@@ -85,99 +110,70 @@ void check_vertical_inter(t_player *player, t_ray *rays, int i)
 }
 void ray_casting(t_player *player , int i, t_ray *rays)
 {
-     rays->x_interecept = 0;
-     rays->y_interecept = 0;
-     rays->xstep = 0;
-     rays->y_step = 0;
-     rays->next_touch_y = 0;
-     rays->next_touch_x = 0;
-     rays->wall_found = 0;
-    //-------------------previous horizontal code
-    // y_interecept = floor(player->y / 32) * 32;
-    // if(rays[i].downward_ray == 1)
-    //     y_interecept += 32;
-    // x_interecept = player->x + (player->y - y_interecept) / tan(rays[i].ray_angle);
-    // y_step = 32;
-    // if(rays[i].upward_ray == 1)
-    //     y_step *= - 1;
-    // xstep = 32 / tan(rays[i].ray_angle);
-    // if(rays[i].left_ray == 1 && xstep > 0)
-    //     xstep *= -1;
-    // if(rays[i].right_ray == 1 && xstep < 0)
-    //     xstep *= -1;
-    // next_touch_x = x_interecept;
-    // next_touch_y = y_interecept;
-    // // if (rays[i].upward_ray == 1)
-    // // {
-    // //     temp_next_touch--;       // was to make sure the ray is inside a square but ended out figuring it should be incremented not decremented
-    // // }
-    // while(next_touch_x >= 0 && next_touch_x <= 32 * 15 && next_touch_y >= 0 && next_touch_y <= 32 * 10)
-    // {
-    //     if(its_a_wall(next_touch_x,  next_touch_y, player))
-    //     {
-    //         wall_found = 1;
-    //         rays[i].wallhitx = next_touch_x;
-    //         rays[i].wallhity = next_touch_y;
-    //         break;
-    //     }
-    //     next_touch_x += xstep;
-    //     next_touch_y += y_step;
-    // }
-    check_horizontal_inter(player, rays, i);
-    //vertical--------------------------------------------
+     rays[i].x_interecept = 0;
+     rays[i].y_interecept = 0;
+     rays[i].xstep = 0;
+     rays[i].y_step = 0;
+     rays[i].next_touch_y = 0;
+     rays[i].next_touch_x = 0;
+     rays[i].wall_found = 0;
     check_vertical_inter(player, rays, i);
+    check_horizontal_inter(player, rays, i);
     double horizontal_hit = 0;
-    // double vertical_hit = 0;
+    double vertical_hit = 0;
+
     if(rays[i].wall_found == 1)
         horizontal_hit = distance_between(player->x, player->y, rays[i].wallhitx, rays[i].wallhity);
-    // else
-    //     horizontal_hit = 2147483647;
-    // if(vert_wall_found == 1)
-    //     vertical_hit = distance_between(player->x, player->y, rays[i].vertwallhitx, rays[i].vertwallhity);
-    // else
-    //     vertical_hit = 2147483647;
-    // printf("%f-horizontal\n", horizontal_hit);
-    // printf("%f-vertical\n", vertical_hit);
-    // if(rays[i].wallhitx > rays[i].vertwallhitx)
-    //     rays[i].wallhitx = rays[i].vertwallhitx;
-    // if(rays[i].wallhity > rays[i].vertwallhity)
-    //     rays[i].wallhity = rays[i].vertwallhity;
-    // if(horizontal_hit > vertical_hit)
-    // {
-        // rays[i].distance = vertical_hit;
-    //     rays[i].hit_vertical = 1;
-    // }
-    // else
-    // {
+    else
+        horizontal_hit = 2147483647; 
+    if(rays[i].vert_wall_found == 1)
+        vertical_hit = distance_between(player->x, player->y, rays[i].vertwallhitx, rays[i].vertwallhity);
+    else
+        vertical_hit = 2147483647; 
+    if(rays[i].wallhitx > rays[i].vertwallhitx)
+        rays[i].wallhitx = rays[i].vertwallhitx;
+    if(rays[i].wallhity > rays[i].vertwallhity)
+        rays[i].wallhity = rays[i].vertwallhity;
+    if(horizontal_hit > vertical_hit)
+    {
+        rays[i].distance = vertical_hit;
+        rays[i].hit_vertical = 1;
+    }
+    else
+    {
         rays[i].distance = horizontal_hit;
-    //     rays[i].hit_vertical = 0;
-    // }
-
-    // printf("%d\n", rays[i].hit_vertical);
+        rays[i].hit_vertical = 0;
+    }
 }
+
+
 
 
 void render(t_player * player, t_ray *ray, int j)
 {
-    int line_length = ray[j].distance;  
-
+    float line_length = ray[j].distance;  
+    (void)j;
+    (void)ray;
     mlx_pixel_put(player->mlx, player->win, player->x, player->y, 0xffff00); 
+    printf("distance = %f\n", line_length);
     for (int i = 0; i <= line_length; i++) {
         double pixel_x = player->x + cos(ray[j].ray_angle) * i;
         double pixel_y = player->y - sin(ray[j].ray_angle) * i;
-        mlx_pixel_put(player->mlx, player->win, (int)pixel_x, (int)pixel_y, 0xffff00); 
+        mlx_pixel_put(player->mlx, player->win, pixel_x, pixel_y, 0xffff00); 
     }
 }
+
 t_ray *cast_rays(t_player *player) {
     t_ray * rays;
     int column = 0;
     int i = 0;
     double ray_angle = 0.0;
-    rays = malloc(sizeof(t_player) * 700);
+    rays = (t_ray *)malloc(sizeof(t_ray) * 32 * 15);
+    
+    ray_angle = player->rotationAngle + M_PI / 6.0;
+    while(i <  32 * 15)
+    {  
 
-    ray_angle = player->rotationAngle -  FOV_ANGLE / 2;
-    while(i < 1)
-    {
         ray_angle = fmod(ray_angle, 2 * M_PI);        
         if (ray_angle < 0) {
             ray_angle += 2 * M_PI;
@@ -194,7 +190,9 @@ t_ray *cast_rays(t_player *player) {
         rays[i].left_ray = !rays[i].right_ray;
         rays[i].ray_angle = ray_angle;
         ray_casting(player, i, rays);
-        ray_angle += FOV_ANGLE / (32 * 15);
+        player->rays = rays;
+        render(player, player->rays, i);
+        ray_angle -= (M_PI / (3.0 * 30 * 15));
         i++;
         column++;
     }

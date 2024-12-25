@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 #define FOV_ANGLE (60 * (M_PI / 180))
 
 typedef struct s_ray{

@@ -17,6 +17,8 @@ int update_map(t_player *player)
     
     next_player_x = player->x + cos(player->rotationAngle) * step;
     next_player_y = player->y - sin(player->rotationAngle) * step;
+    // printf("%f--%d\n", (player->x), (next_player_x));
+    // printf("%f--%\n", (player->y), (next_player_y));
     if(!its_a_wall(next_player_x, next_player_y, player))
     {
         player->x = next_player_x;
@@ -30,10 +32,6 @@ int update_map(t_player *player)
     draw_player(player, player->win, player->mlx);
     ray = cast_rays(player);
     player->rays = ray;
-    while (i < 1)
-    {
-        render(player, player->rays, i);
-        i++;
-    }
+ 
     return(0);
 }
