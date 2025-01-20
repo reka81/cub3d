@@ -55,13 +55,12 @@ void draw_player(t_player *player, void *win, void *mlx)
         j = -player->radius;
             while (j < player->radius)
             {
-                x = player->x + i;
-                y = player->y + j;
+                x = (player->x * 0.4) + i;
+                y = (player->y * 0.4) + j;
                 if ((i * i + j * j) <= (player->radius * player->radius))
                     mlx_pixel_put(mlx, win, x, y , 0xFFFFFF); 
             j++;
             }
         i++;
     }
-    draw_line(player, win, mlx);
 }

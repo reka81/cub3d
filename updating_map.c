@@ -1,5 +1,30 @@
 #include "cub3d.h"
+void wall_draw_3d(int rays_num , t_ray * ray, void *win, void *mlx, t_player *player)
+{
+    int i = 0;
+    int wallheight = 0;
+    int distanceProjectionPlane = (32 * 15) / tan(FOV_ANGLE / 2);
+    while (i < rays_num)
+    {
+        wallheight = (32 / (ray[i].distance * cos(ray[i].ray_angle - player->rotationAngle))) * distanceProjectionPlane;
+                int wall_top = (32 * 10 / 2) - (wallheight / 2);
+        int wall_bottom = (32 *10 / 2) + (wallheight / 2);
 
+        // Clamp values to screen
+        if (wall_top < 0) wall_top = 0;
+        if (wall_bottom >= 32 *10) wall_bottom = 32 *10 - 1;
+
+        // Draw the wall slice (vertical line) at column i
+        int y = wall_top;
+        while (y <= wall_bottom)
+        {
+            int color = 0xFFFFFF; // Example color, white
+            mlx_pixel_put(mlx, win, i, y, color);
+            y++;
+        }
+        i++;
+    }
+}
 int update_map(t_player *player)
 {
     double step = 0.0;
@@ -7,7 +32,7 @@ int update_map(t_player *player)
     double next_player_y ;
     int i;
     i = 0;
-    t_ray *ray;
+    t_ray *ray = NULL;
 
     next_player_x = 0.0;
     next_player_y = 0.0;
@@ -28,9 +53,12 @@ int update_map(t_player *player)
         player->rotationAngle += 2 * M_PI;
     if (player->rotationAngle > 2 * M_PI)    
         player->rotationAngle -= 2 * M_PI;
+    // printf("%p\n", ray);
+    // ray = cast_rays(player);
+    ray = cast_rays(player);
+    wall_draw_3d(32 * 15, ray, player->win, player->mlx, player);
     draw_image(player->staticArray, player->mlx, player->win);
     draw_player(player, player->win, player->mlx);
-    ray = cast_rays(player);
     player->rays = ray;
  
     return(0);

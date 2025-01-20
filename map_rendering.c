@@ -16,21 +16,21 @@ void draw_image(char staticArray[10][17] , void *mlx , void*win)
             if(staticArray[i][j] == '0')
                 color = 0x000000;
             int x;
-            while(y < 32)
+            while(y < 13)
             {
                 x = 0;
-                while (x < 32)
+                while (x < 13)
                 {
-                    mlx_pixel_put(mlx, win, j * 32 + x , i * 32 + y, color);
+                    mlx_pixel_put(mlx, win, j * 13 + x , i * 13 + y, color);
                     x++;
                 }
-                mlx_pixel_put(mlx, win, j *32 + x - 1, i*32 + y, 0xFFFFFF);
+                mlx_pixel_put(mlx, win, j *13 + x - 1, i*13 + y, 0xFFFFFF);
                 y++;
             }
             x = 0;
-            while (x < 32)
+            while (x < 13)
             {
-                mlx_pixel_put(mlx, win, j * 32 + x, i *32 + y - 1, 0xFFFFFF);
+                mlx_pixel_put(mlx, win, j * 13 + x, i *13 + y - 1, 0xFFFFFF);
                 x++;
             }
             j++;

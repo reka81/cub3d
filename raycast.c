@@ -151,14 +151,14 @@ void ray_casting(t_player *player , int i, t_ray *rays)
 
 void render(t_player * player, t_ray *ray, int j)
 {
-    float line_length = ray[j].distance;  
+    float line_length = ray[j].distance * 0.4;  
     (void)j;
     (void)ray;
     mlx_pixel_put(player->mlx, player->win, player->x, player->y, 0xffff00); 
-    printf("distance = %f\n", line_length);
+    // printf("distance = %f\n", line_length);
     for (int i = 0; i <= line_length; i++) {
-        double pixel_x = player->x + cos(ray[j].ray_angle) * i;
-        double pixel_y = player->y - sin(ray[j].ray_angle) * i;
+        double pixel_x = (player->x * 0.4) + cos(ray[j].ray_angle) * i;
+        double pixel_y = (player->y * 0.4) - sin(ray[j].ray_angle) * i;
         mlx_pixel_put(player->mlx, player->win, pixel_x, pixel_y, 0xffff00); 
     }
 }
