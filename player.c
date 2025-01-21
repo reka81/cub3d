@@ -37,8 +37,8 @@ void player_init(t_player *player, char staticArray[10][17], void *mlx, void *wi
     player->turn_direction = 0;
     player->walkdirection = 0;
     player->rotationAngle = M_PI / 2;
-    player->movespeed = 4.0;
-    player->rotationspeed = (M_PI / 50);
+    player->movespeed = 9.0;
+    player->rotationspeed = (M_PI / 25);
     player->staticArray = staticArray;
     player->win = win;
     player->mlx = mlx;

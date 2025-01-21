@@ -15,11 +15,23 @@ void wall_draw_3d(int rays_num , t_ray * ray, void *win, void *mlx, t_player *pl
         if (wall_bottom >= 32 *10) wall_bottom = 32 *10 - 1;
 
         // Draw the wall slice (vertical line) at column i
+        for (int y = 0; y < wall_top; y++)
+        {
+            mlx_pixel_put(mlx, win, i, y, 0x87CEEB); // Sky color (light blue)
+        }
+        
         int y = wall_top;
+
         while (y <= wall_bottom)
         {
-            int color = 0xFFFFFF; // Example color, white
+            int color = 0xA0522D; // Example color, white
             mlx_pixel_put(mlx, win, i, y, color);
+            y++;
+        }
+        y = wall_bottom + 1;
+        while (y < 32 * 10)
+        {
+            mlx_pixel_put(mlx, win, i, y, 0x808080); // Floor color (sea green)
             y++;
         }
         i++;
