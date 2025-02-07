@@ -32,6 +32,10 @@ typedef struct s_ray{
     int vert_wall_found;
 }t_ray;
 typedef struct s_player{
+    void * buffer;
+    int size_line;
+    int bits_per_pixel;
+    void *img;
     double x;
     double y;
     int radius;
@@ -46,6 +50,16 @@ typedef struct s_player{
     t_ray *rays;
 }t_player;
 
+typedef struct s_texture
+{
+    void    *img;
+    char    *data;
+    int     width;
+    int     height;
+    int     bpp;
+    int     size_line;
+    int     endian;
+} t_texture;
 
 void draw_player(t_player *player, void *win, void *mlx);
 int update_player2(int keycode, t_player *player);
@@ -56,7 +70,7 @@ void render(t_player * player, t_ray *ray, int j);
 void draw_player(t_player *player, void *win, void *mlx);
 void player_init(t_player *player, char staticArray[10][17], void *mlx, void *win);
 int its_a_wall(double x, double y, t_player *player);
+void put_pixel_to_buffer(char *buffer, int x, int y, int color, int size_line, int bits_per_pixel);
 void draw_line(t_player *player, void *mlx , void *win);
-void draw_image(char staticArray[10][17] , void *mlx , void*win);
-
+void draw_image(char staticArray[10][17] , void *mlx , void*win, void *img, char* buffer, int size_line, int bits_per_pizel);
 #endif

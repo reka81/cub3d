@@ -19,8 +19,8 @@ void draw_line(t_player *player, void *mlx , void *win)
 int its_a_wall(double x, double y, t_player *player)
 {
     
-    int check_x = x / 32;
-    int check_y = y / 32;
+    int check_x = x / 64;
+    int check_y = y / 64;
     // printf("%d--%f--%d--%f\n", check_x, x, check_y, y);
     // printf("x:%d y:%d char:%c\n", check_x, check_y, player->staticArray[check_y][check_x]);
     if(player->staticArray[check_y][check_x] == '1')
@@ -31,13 +31,13 @@ int its_a_wall(double x, double y, t_player *player)
 
 void player_init(t_player *player, char staticArray[10][17], void *mlx, void *win)
 {
-    player->x = 32 * 15 /2;
-    player->y = 32 * 10 /2;
-    player->radius = 3;
+    player->x = 64 * 15 /2;
+    player->y = 64 * 10 /2;
+    player->radius = 9;
     player->turn_direction = 0;
     player->walkdirection = 0;
     player->rotationAngle = M_PI / 2;
-    player->movespeed = 9.0;
+    player->movespeed = 6.0;
     player->rotationspeed = (M_PI / 25);
     player->staticArray = staticArray;
     player->win = win;
@@ -55,12 +55,13 @@ void draw_player(t_player *player, void *win, void *mlx)
         j = -player->radius;
             while (j < player->radius)
             {
-                x = (player->x * 0.4) + i;
-                y = (player->y * 0.4) + j;
+                x = (player->x) + i;
+                y = (player->y) + j;
                 if ((i * i + j * j) <= (player->radius * player->radius))
-                    mlx_pixel_put(mlx, win, x, y , 0xFFFFFF); 
+                    put_pixel_to_buffer(player->buffer, x, y, 0xFFFFFF, player->size_line, player->bits_per_pixel);
             j++;
             }
         i++;
     }
+    mlx_put_image_to_window(mlx, win, player->img, 0, 0);
 }

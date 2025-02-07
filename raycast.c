@@ -1,7 +1,7 @@
 #include "cub3d.h"
 void draw_ray_lines(t_player * player, t_ray *ray, int j)
 {
-    int line_length = 32 * 15;
+    int line_length = 64 * 15;
 
     mlx_pixel_put(player->mlx, player->win, player->x, player->y, 0xffff00); 
     for (int i = 0; i <= line_length; i++) {
@@ -23,28 +23,28 @@ void check_horizontal_inter(t_player *player, t_ray *rays, int i)
     rays[i].x_interecept = 0;
     rays[i].y_interecept = 0;
     rays[i].wall_found = 0;
-    rays[i].y_interecept = floor(player->y / 32) * 32;
+    rays[i].y_interecept = floor(player->y / 64) * 64;
     if(rays[i].downward_ray == 1)
-        rays[i].y_interecept += 32;
+        rays[i].y_interecept += 64;
     rays[i].x_interecept = player->x + (player->y - rays[i].y_interecept) / tan(rays[i].ray_angle);
-    rays[i].y_step = 32;
+    rays[i].y_step = 64;
     if(rays[i].upward_ray == 1)
         rays[i].y_step *= - 1;
-    rays[i].xstep = 32 / tan(rays[i].ray_angle);
+    rays[i].xstep = 64 / tan(rays[i].ray_angle);
     if(rays[i].left_ray == 1 && rays[i].xstep > 0)
         rays[i].xstep *= -1;
     if(rays[i].right_ray == 1 && rays[i].xstep < 0)
         rays[i].xstep *= -1;
     rays[i].next_touch_x = rays[i].x_interecept;
     rays[i].next_touch_y = rays[i].y_interecept;
-    while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 32 * 15 && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 32 * 10)
+    while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 64 * 15 && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 64 * 10)
     {
         double y_check = rays[i].next_touch_y;
         if (rays[i].upward_ray == 1)
         {
             y_check--;      
         }
-        if(its_a_wall(rays[i].next_touch_x,  y_check, player) || rays[i].next_touch_y == 32)
+        if(its_a_wall(rays[i].next_touch_x,  y_check, player) || rays[i].next_touch_y == 64)
         {
             rays[i].wall_found = 1;
             rays[i].wallhitx = rays[i].next_touch_x;
@@ -57,8 +57,8 @@ void check_horizontal_inter(t_player *player, t_ray *rays, int i)
 }
 int its_a_wall2(double x, double y, t_player *player)
 {
-    int check_x = x / 32;
-    int check_y = y / 32;
+    int check_x = x / 64;
+    int check_y = y / 64;
 
     if(player->staticArray[check_y][check_x] == '1')
         return(1);
@@ -77,21 +77,21 @@ void check_vertical_inter(t_player *player, t_ray *rays, int i)
     rays[i].y_interecept = 0;
     rays[i].vert_wall_found = 0;
     
-    rays[i].x_interecept = floor(player->x / 32) * 32;
+    rays[i].x_interecept = floor(player->x / 64) * 64;
     if(rays[i].right_ray == 1)
-        rays[i].x_interecept += 32;
+        rays[i].x_interecept += 64;
     rays[i].y_interecept = player->y + (player->x - rays[i].x_interecept) * tan(rays[i].ray_angle);
-    rays[i].xstep = 32;
+    rays[i].xstep = 64;
     if(rays[i].left_ray == 1)  
         rays[i].xstep *= -1;
-    rays[i].y_step = 32 * tan(rays[i].ray_angle);
+    rays[i].y_step = 64 * tan(rays[i].ray_angle);
     if(rays[i].upward_ray == 1 && rays[i].y_step > 0) 
         rays[i].y_step *= -1;
     if(rays[i].downward_ray == 1 && rays[i].y_step < 0)
         rays[i].y_step *= -1;
     rays[i].next_touch_x = rays[i].x_interecept;
     rays[i].next_touch_y = rays[i].y_interecept;
-    while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 32 * 15 && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 32 * 10)
+    while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 64 * 15 && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 64 * 10)
     {
         x_check = rays[i].next_touch_x;
         if (rays[i].left_ray == 1)
@@ -151,16 +151,22 @@ void ray_casting(t_player *player , int i, t_ray *rays)
 
 void render(t_player * player, t_ray *ray, int j)
 {
-    float line_length = ray[j].distance * 0.4;  
-    (void)j;
-    (void)ray;
-    mlx_pixel_put(player->mlx, player->win, player->x, player->y, 0xffff00); 
+     j =0;
+    while(j < 64 * 15)
+    {
+        float line_length = ray[j].distance ;  
+        (void)j;
+        (void)ray;
+        put_pixel_to_buffer(player->buffer, player->x, player->y, 0xFFFF00, player->size_line, player->bits_per_pixel);
     // printf("distance = %f\n", line_length);
-    for (int i = 0; i <= line_length; i++) {
-        double pixel_x = (player->x * 0.4) + cos(ray[j].ray_angle) * i;
-        double pixel_y = (player->y * 0.4) - sin(ray[j].ray_angle) * i;
-        mlx_pixel_put(player->mlx, player->win, pixel_x, pixel_y, 0xffff00); 
+        for (int i = 0; i <= line_length; i++) {
+            double pixel_x = (player->x ) + cos(ray[j].ray_angle) * i;
+            double pixel_y = (player->y) - sin(ray[j].ray_angle) * i;
+            put_pixel_to_buffer(player->buffer, pixel_x, pixel_y, 0xFFFF00, player->size_line, player->bits_per_pixel);
+        }
+        j++;
     }
+    mlx_put_image_to_window(player->mlx, player->win, player->img, 0, 0);
 }
 
 t_ray *cast_rays(t_player *player) {
@@ -168,10 +174,10 @@ t_ray *cast_rays(t_player *player) {
     int column = 0;
     int i = 0;
     double ray_angle = 0.0;
-    rays = (t_ray *)malloc(sizeof(t_ray) * 32 * 15);
+    rays = (t_ray *)malloc(sizeof(t_ray) * 64 * 15);
     
     ray_angle = player->rotationAngle + M_PI / 6.0;
-    while(i <  32 * 15)
+    while(i <  64 * 15)
     {  
 
         ray_angle = fmod(ray_angle, 2 * M_PI);        
@@ -191,10 +197,11 @@ t_ray *cast_rays(t_player *player) {
         rays[i].ray_angle = ray_angle;
         ray_casting(player, i, rays);
         player->rays = rays;
-        render(player, player->rays, i);
-        ray_angle -= (M_PI / (3.0 * 30 * 15));
+        ray_angle -= (M_PI / (3.0 * 60 * 15));
         i++;
         column++;
     }
+        player->rays = rays;
+        render(player, player->rays, i);
     return(rays);
 }
