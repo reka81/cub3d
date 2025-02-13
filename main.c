@@ -20,7 +20,7 @@ int main()
     int bits_per_pixel;
     int size_line;
     int endian;
-    // t_texture *texture;
+    t_texture *texture;
 
     char staticArray[10][17] = {
         {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' , '\n', '\0'}, // Row 1
@@ -34,21 +34,39 @@ int main()
         {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1' , '\n', '\0'}, // Row 9
         {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' , '\n', '\0'}  // Row 10
     };
-    // texture = malloc(sizeof(t_texture));
+    texture = malloc(sizeof(t_texture));
+    mlx = NULL;
+    texture->data = NULL;
+    texture->img = NULL;
+    texture->size_line = 0;
+    texture->bpp = 0;
+    texture->endian = 0;
     player = malloc(sizeof(t_player));
     mlx = mlx_init();
+    if(!mlx)
+        exit(0);
     win = mlx_new_window(mlx, 64 * 15, 64 * 10, "window");
+    texture->img = mlx_xpm_file_to_image(mlx, "wall_texture.xpm", &texture->width, &texture->height);
+    if (!texture->img) {
+    printf("Error: mlx_xpm_file_to_image() failed! The XPM file might be missing or invalid.\n");
+    return (1);
+}
+    printf("%d---%d--%p\n", texture->width, texture->height, texture->img);
+    texture->data = mlx_get_data_addr(texture->img, &texture->bpp, &texture->size_line, &texture->endian);
+    player->texture = texture;
+    if (!texture->data) {
+    printf("Error: mlx_get_data_addr() returned NULL! The image might be invalid.\n");
+    return (1);  // Or handle the error properly
+}
     void *img = mlx_new_image(mlx, 64 * 15, 64 * 10);
     char *buffer = mlx_get_data_addr(img, &bits_per_pixel, &size_line, &endian);
-    // texture->img = mlx_xpm_file_to_image(mlx, "wall_texture.xpm", texture->width, texture->height);
-    // texture->data = mlx_get_data_addr(texture->img, texture->bpp, texture->size_line, texture->endian);
     player_init(player, staticArray, mlx, win);
-    draw_image(staticArray, mlx, win,img, buffer, size_line, bits_per_pixel);
+    // draw_image(staticArray, mlx, win,img, buffer, size_line, bits_per_pixel);
     player->buffer = buffer;
     player->size_line = size_line;
     player->img = img;
     player->bits_per_pixel = bits_per_pixel;
-    draw_player(player, win, mlx);
+    // draw_player(player, win, mlx);
     mlx_hook(win, 2, 0, &update_player, player);
     mlx_hook(win, 3, 0 , &update_player2, player);
     mlx_loop_hook(mlx, &update_map, player);

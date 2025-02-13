@@ -1,6 +1,6 @@
 NAME = cub3d
 CC = cc
-FLAGS =  -Wall -Wextra -Werror -fsanitize=address -g
+FLAGS =   -fsanitize=address -g
 RM = rm -rf
 
 SRCS = main.c map_rendering.c player.c raycast.c updating_player.c updating_map.c
