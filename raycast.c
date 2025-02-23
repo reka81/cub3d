@@ -108,65 +108,50 @@ void check_vertical_inter(t_player *player, t_ray *rays, int i)
         rays[i].next_touch_y += rays[i].y_step;
     }
 }
-void ray_casting(t_player *player , int i, t_ray *rays)
-{
-     rays[i].x_interecept = 0;
-     rays[i].y_interecept = 0;
-     rays[i].xstep = 0;
-     rays[i].y_step = 0;
-     rays[i].next_touch_y = 0;
-     rays[i].next_touch_x = 0;
-     rays[i].wall_found = 0;
+void ray_casting(t_player *player, int i, t_ray *rays) {
+    rays[i].x_interecept = 0;
+    rays[i].y_interecept = 0;
+    rays[i].xstep = 0;
+    rays[i].y_step = 0;
+    rays[i].next_touch_y = 0;
+    rays[i].next_touch_x = 0;
+    rays[i].wall_found = 0;
+    rays[i].north_face = false;
+    rays[i].south_face = false;
+    rays[i].east_face = false;
+    rays[i].west_face = false;
+
     check_vertical_inter(player, rays, i);
     check_horizontal_inter(player, rays, i);
-    double horizontal_hit = 0;
-    double vertical_hit = 0;
 
-    if(rays[i].wall_found == 1)
-        horizontal_hit = distance_between(player->x, player->y, rays[i].wallhitx, rays[i].wallhity);
-    else
-        horizontal_hit = 2147483647; 
-    if(rays[i].vert_wall_found == 1)
-        vertical_hit = distance_between(player->x, player->y, rays[i].vertwallhitx, rays[i].vertwallhity);
-    else
-        vertical_hit = 2147483647; 
-    if(rays[i].wallhitx > rays[i].vertwallhitx)
-        rays[i].wallhitx = rays[i].vertwallhitx;
-    if(rays[i].wallhity > rays[i].vertwallhity)
-        rays[i].wallhity = rays[i].vertwallhity;
-    if(horizontal_hit > vertical_hit)
-    {
-        rays[i].distance = vertical_hit;
-        rays[i].hit_vertical = 1;
-    }
-    else
-    {
+    double horizontal_hit = rays[i].wall_found ? distance_between(player->x, player->y, rays[i].wallhitx, rays[i].wallhity) : INT_MAX;
+    double vertical_hit = rays[i].vert_wall_found ? distance_between(player->x, player->y, rays[i].vertwallhitx, rays[i].vertwallhity) : INT_MAX;
+
+    if (horizontal_hit < vertical_hit) {
         rays[i].distance = horizontal_hit;
         rays[i].hit_vertical = 0;
+        rays[i].wallhitx = rays[i].wallhitx;
+        rays[i].wallhity = rays[i].wallhity;
+    } else {
+        rays[i].distance = vertical_hit;
+        rays[i].hit_vertical = 1;
+        rays[i].wallhitx = rays[i].vertwallhitx;
+        rays[i].wallhity = rays[i].vertwallhity;
     }
-}
 
-
-
-
-void render(t_player * player, t_ray *ray, int j)
-{
-     j =0;
-    while(j < 64 * 15)
-    {
-        float line_length = ray[j].distance ;  
-        (void)j;
-        (void)ray;
-        put_pixel_to_buffer(player->buffer, player->x, player->y, 0xFFFF00, player->size_line, player->bits_per_pixel);
-    // printf("distance = %f\n", line_length);
-        for (int i = 0; i <= line_length; i++) {
-            double pixel_x = (player->x ) + cos(ray[j].ray_angle) * i;
-            double pixel_y = (player->y) - sin(ray[j].ray_angle) * i;
-            put_pixel_to_buffer(player->buffer, pixel_x, pixel_y, 0xFFFF00, player->size_line, player->bits_per_pixel);
+    if (!rays[i].hit_vertical) {
+        if (rays[i].downward_ray) {
+            rays[i].south_face = true;
+        } else {
+            rays[i].north_face = true;
         }
-        j++;
+    } else {
+        if (rays[i].right_ray) {
+            rays[i].east_face = true;
+        } else {
+            rays[i].west_face = true;
+        }
     }
-    mlx_put_image_to_window(player->mlx, player->win, player->img, 0, 0);
 }
 
 t_ray *cast_rays(t_player *player) {

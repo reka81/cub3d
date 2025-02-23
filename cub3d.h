@@ -6,6 +6,14 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
+#include <limits.h>
+
+#define SCREEN_HEIGHT (64 * 10)
+#define SCREEN_WIDTH (64 * 10)
+#define TEXTURE_WIDTH 64
+#define TEXTURE_HEIGHT 64
+
 
 #define FOV_ANGLE (60 * (M_PI / 180))
 
@@ -30,6 +38,10 @@ typedef struct s_ray{
     double next_touch_x;
     int wall_found;
     int vert_wall_found;
+    bool north_face;
+	bool south_face;
+	bool east_face;
+	bool west_face;
 }t_ray;
 typedef struct s_texture
 {
