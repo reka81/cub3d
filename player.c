@@ -4,15 +4,13 @@ void draw_line(t_player *player, void *mlx , void *win)
 {
     (void)mlx;
     (void)win;
-    // player->rotationAngle += player->turn_direction *player->rotationspeed;
-    int line_length = 30;  // Length of the line
+    int line_length = 30;
 
-    // Draw the line from player's position (x, y) to the calculated endpoint
-    mlx_pixel_put(player->mlx, player->win, player->x, player->y, 0xFFFFFF); // Player position
+    mlx_pixel_put(player->mlx, player->win, player->x, player->y, 0xFFFFFF);
     for (int i = 0; i <= line_length; i++) {
         double pixel_x = player->x + cos(player->rotationAngle) * i;
         double pixel_y = player->y - sin(player->rotationAngle) * i;
-        mlx_pixel_put(player->mlx, player->win, (int)pixel_x, (int)pixel_y, 0xFF0000); // Line pixels
+        mlx_pixel_put(player->mlx, player->win, (int)pixel_x, (int)pixel_y, 0xFF0000);
     }
 }
 
@@ -21,8 +19,6 @@ int its_a_wall(double x, double y, t_player *player)
     
     int check_x = x / 64;
     int check_y = y / 64;
-    // printf("%d--%f--%d--%f\n", check_x, x, check_y, y);
-    // printf("x:%d y:%d char:%c\n", check_x, check_y, player->staticArray[check_y][check_x]);
     if(player->staticArray[check_y][check_x] == '1')
         return(1);
     else

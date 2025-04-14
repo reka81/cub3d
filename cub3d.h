@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <limits.h>
+#include "parsing.h"
 
 #define SCREEN_HEIGHT (64 * 10)
 #define SCREEN_WIDTH (64 * 10)
@@ -66,11 +67,14 @@ typedef struct s_player{
     double rotationAngle;
     int movespeed;
     double rotationspeed;
+    int get_num_rows;
+    int longest_row;
     char (*staticArray)[17];
     void *mlx;
     void *win;
     t_ray *rays;
     t_texture *texture;
+    t_texture **textures;
 }t_player;
 
 
@@ -81,9 +85,10 @@ int update_map(t_player *player);
 t_ray *cast_rays(t_player *player);
 void render(t_player * player, t_ray *ray, int j);
 void draw_player(t_player *player, void *win, void *mlx);
-void player_init(t_player *player, char staticArray[10][17], void *mlx, void *win);
+void player_init(t_player *player, char map[10][17], void *mlx, void *win);
 int its_a_wall(double x, double y, t_player *player);
 void put_pixel_to_buffer(char *buffer, int x, int y, int color, int size_line, int bits_per_pixel);
 void draw_line(t_player *player, void *mlx , void *win);
 void draw_image(char staticArray[10][17] , void *mlx , void*win, void *img, char* buffer, int size_line, int bits_per_pizel);
+t_strings *retrieving(int ac, char **av);
 #endif

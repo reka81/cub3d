@@ -187,6 +187,5 @@ t_ray *cast_rays(t_player *player) {
         column++;
     }
         player->rays = rays;
-        // render(player, player->rays, i);
     return(rays);
 }
