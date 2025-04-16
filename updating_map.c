@@ -89,7 +89,7 @@ int update_map(t_player *player)
     if (player->rotationAngle > 2 * M_PI)    
         player->rotationAngle -= 2 * M_PI;
     ray = cast_rays(player);
-    wall_draw_3d(64 * 30, ray, player->win, player->mlx, player, player->texture);
+    wall_draw_3d(64 * player->longest_row, ray, player->win, player->mlx, player, player->texture);
     player->rays = ray;
 
     return(0);

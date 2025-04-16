@@ -37,7 +37,7 @@ void check_horizontal_inter(t_player *player, t_ray *rays, int i)
         rays[i].xstep *= -1;
     rays[i].next_touch_x = rays[i].x_interecept;
     rays[i].next_touch_y = rays[i].y_interecept;
-    while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 64 * 30 && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 64 * 15)
+    while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 64 *  player->longest_row && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 64 * player->get_num_rows)
     {
         double y_check = rays[i].next_touch_y;
         if (rays[i].upward_ray == 1)
@@ -91,7 +91,7 @@ void check_vertical_inter(t_player *player, t_ray *rays, int i)
         rays[i].y_step *= -1;
     rays[i].next_touch_x = rays[i].x_interecept;
     rays[i].next_touch_y = rays[i].y_interecept;
-    while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 64 * 30 && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 64 * 15)
+    while(rays[i].next_touch_x >= 0 && rays[i].next_touch_x <= 64 *  player->longest_row && rays[i].next_touch_y >= 0 && rays[i].next_touch_y <= 64 * player->get_num_rows)
     {
         x_check = rays[i].next_touch_x;
         if (rays[i].left_ray == 1)
@@ -159,10 +159,10 @@ t_ray *cast_rays(t_player *player) {
     int column = 0;
     int i = 0;
     double ray_angle = 0.0;
-    rays = (t_ray *)malloc(sizeof(t_ray) * 64 * 30);
+    rays = (t_ray *)malloc(sizeof(t_ray) * 64 * player->longest_row);
     
     ray_angle = player->rotationAngle + M_PI / 6.0;
-    while(i <  64 * 30)
+    while(i <  64 *  player->longest_row)
     {  
 
         ray_angle = fmod(ray_angle, 2 * M_PI);        
@@ -182,7 +182,7 @@ t_ray *cast_rays(t_player *player) {
         rays[i].ray_angle = ray_angle;
         ray_casting(player, i, rays);
         player->rays = rays;
-        ray_angle -= (M_PI / (3.0 * 60 * 30));
+        ray_angle -= (M_PI / (3.0 * 60 *  player->longest_row));
         i++;
         column++;
     }
