@@ -11,7 +11,7 @@
 #include "parsing.h"
 
 #define SCREEN_HEIGHT (64 * 10)
-#define SCREEN_WIDTH (64 * 10)
+#define SCREEN_WIDTH (64 * 15)
 #define TEXTURE_WIDTH 64
 #define TEXTURE_HEIGHT 64
 
@@ -24,7 +24,7 @@ typedef struct s_ray{
     double wallhity;
     double vertwallhitx;
     double vertwallhity;
-    int downward_ray;
+    int downward_ray; 
     int upward_ray;
     int left_ray;
     int right_ray;
@@ -69,7 +69,7 @@ typedef struct s_player{
     double rotationspeed;
     int get_num_rows;
     int longest_row;
-    char (*staticArray)[17];
+    char (*staticArray)[32];
     void *mlx;
     void *win;
     t_ray *rays;
@@ -85,7 +85,7 @@ int update_map(t_player *player);
 t_ray *cast_rays(t_player *player);
 void render(t_player * player, t_ray *ray, int j);
 void draw_player(t_player *player, void *win, void *mlx);
-void player_init(t_player *player, char map[10][17], void *mlx, void *win);
+void player_init(t_player *player, char map[15][32], void *mlx, void *win);
 int its_a_wall(double x, double y, t_player *player);
 void put_pixel_to_buffer(char *buffer, int x, int y, int color, int size_line, int bits_per_pixel);
 void draw_line(t_player *player, void *mlx , void *win);

@@ -3,7 +3,12 @@ uint32_t find_color(t_ray *ray, int y, int wallheight, uint32_t *wall_texture, t
     int TextureOffsetX = ray->hit_vertical ? (int)ray->wallhity % texture->width : (int)ray->wallhitx % texture->width;
 
     int distance_from_top = y - ((64 * 10) / 2) + (wallheight / 2);
-    int textureOffsetY = (distance_from_top * texture->height) / wallheight;
+    int textureOffsetY;
+    if (wallheight == 0) {
+    textureOffsetY = 0;  // Or some fallback value, depending on what makes sense
+    } else {
+        textureOffsetY = (distance_from_top * texture->height) / wallheight;
+    }
 
     if (textureOffsetY < 0) textureOffsetY = 0;
     if (textureOffsetY >= texture->height) textureOffsetY = texture->height - 1;
@@ -84,7 +89,7 @@ int update_map(t_player *player)
     if (player->rotationAngle > 2 * M_PI)    
         player->rotationAngle -= 2 * M_PI;
     ray = cast_rays(player);
-    wall_draw_3d(64 * 15, ray, player->win, player->mlx, player, player->texture);
+    wall_draw_3d(64 * 30, ray, player->win, player->mlx, player, player->texture);
     player->rays = ray;
 
     return(0);

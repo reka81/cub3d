@@ -25,7 +25,7 @@ int its_a_wall(double x, double y, t_player *player)
         return(0);
 }
 
-void player_init(t_player *player, char staticArray[10][17], void *mlx, void *win)
+void player_init(t_player *player, char staticArray[15][32], void *mlx, void *win)
 {
     player->x = 64 * 15 /2;
     player->y = 64 * 10 /2;
