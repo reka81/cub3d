@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:10 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/14 15:25:28 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:49:28 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -470,7 +470,7 @@ void check_new_line(char **strs)
 	}
 }
 
-t_strings retrieving(int ac, char **av)
+t_strings *retrieving(int ac, char **av)
 {
 	int	fd;
 	char **strs;
@@ -478,7 +478,8 @@ t_strings retrieving(int ac, char **av)
 	char *c_color;
 	char **rgb_c_color;
 	t_strings strings;
-
+	
+	printf("%d\n", ac);
 	fd = openfd(av[1]);
 	strs = store_2d_array(fd);
 	check_order(strs);
@@ -493,6 +494,5 @@ t_strings retrieving(int ac, char **av)
 	only_6_char(strings.map);
 	check_new_line(strings.map);
 	check_map(strings.map);
-	int i = 0;
-	return strings;
+	return &strings;
 }

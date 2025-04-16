@@ -22,7 +22,16 @@ void texture_init(t_texture *texture, t_texture *texture2)
     texture2->bpp = 0;
     texture2->endian = 0;
 }
+char *ft_strcpy(char *dest, const char *src) {
+    int i = 0;
 
+    while (src[i]) {
+        dest[i] = src[i];
+        i++;
+    }
+    dest[i] = '\0';
+    return dest;
+}
 void setting_imgs_and_data(t_texture *texture, void *mlx, char * string)
 {
     texture->img = mlx_xpm_file_to_image(mlx, string, &texture->width, &texture->height);
@@ -36,7 +45,7 @@ void init_vars_mlx(void *win, void *mlx, t_player *player)
     mlx_clear_window(player->mlx, player->win);
     mlx_loop(mlx);
 }
-int get_num_rows(double **array) {
+int get_num_rows(char **array) {
     int num_rows = 0;
 
     while (array[num_rows] != NULL) {
@@ -45,25 +54,42 @@ int get_num_rows(double **array) {
 
     return num_rows;
 }
-double* get_longest_line(double** array, int rows) {
-    int max_length = 0;
-    double* longest_row = NULL;
+int get_longest_row(char **map) {
+    int i = 0;
+    int max_len = 0;
+    while (map[i] != NULL) {
+        int len = ft_strlen(map[i]);
+        if (len > max_len)
+            max_len = len;
+        i++;
+    }
+    return max_len;
+}
+char **pad_map(char **map, int num_rows, int longest_row, char pad_char) {
+    int i;
 
-    for (int i = 0; i < rows; i++) {
-        int current_length = 0;
-        while (array[i][current_length] != '\0') {
-            current_length++;
-        }
+    // Allocate one extra row for the NULL terminator
+    char **padded_map = malloc(sizeof(char *) * (num_rows + 1));
+    if (!padded_map) return NULL;
 
-        if (current_length > max_length) {
-            max_length = current_length;
-            longest_row = array[i];
+    for (i = 0; i < num_rows; i++) {
+        int len = ft_strlen(map[i]);
+        padded_map[i] = malloc(longest_row + 1); // +1 for null terminator
+        if (!padded_map[i]) return NULL;
+
+        // Copy original content
+        ft_strcpy(padded_map[i], map[i]);
+
+        // Pad with pad_char if needed
+        for (int j = len; j < longest_row; j++) {
+            padded_map[i][j] = pad_char;
         }
+        padded_map[i][longest_row] = '\0'; // Null terminate the string
     }
 
-    return longest_row;
+    padded_map[num_rows] = NULL; // Null terminate the array of strings
+    return padded_map;
 }
-
 int main(int ac, char **av)
 {
     void *mlx;
@@ -105,6 +131,16 @@ char staticArray[15][32] = {
     player = malloc(sizeof(t_player));
     mlx = mlx_init();
     win = mlx_new_window(mlx, 64 * 15, 64 * 10, "window");
+    // t_strings *strings = retrieving(ac, av);
+    // char **map = strings->map;
+    // // printf("%d--%d\n",player->longest_row, player->get_num_rows);
+    // map = pad_map(strings->map,player->get_num_rows, player->longest_row, '1');
+    // player->longest_row = get_longest_row(strings->map);
+    // player->get_num_rows = get_num_rows(strings->map);
+        // player->longest_row = get_longest_row(strings->map);
+    // player->get_num_rows = get_num_rows(strings->map);
+           player->longest_row = 30;
+    player->get_num_rows = 15;
     setting_imgs_and_data(texture, mlx, "wall_texture.xpm");
     setting_imgs_and_data(texture2, mlx, "tswiraaaa.xpm");
     setting_imgs_and_data(texture3, mlx, "east_walls.xpm");
@@ -112,8 +148,6 @@ char staticArray[15][32] = {
     player->texture = texture;
     void *img = mlx_new_image(mlx, 64 * 15 , 64 * 10);
     char *buffer = mlx_get_data_addr(img, &bits_per_pixel, &size_line, &endian);
-    player->longest_row = 30;
-    player->get_num_rows = 15;
     player_init(player, staticArray, mlx, win);
     player->buffer = buffer;
     player->size_line = size_line;
