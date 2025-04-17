@@ -101,6 +101,15 @@ void locate_player(t_player * player, char **map)
             {
                 player->x = 64 * j;
                 player->y = 64 * i;
+                if(map[i][j] == 'N')
+                     player->rotationAngle = M_PI / 2;
+                if(map[i][j] == 'S')
+                    player->rotationAngle = 3 * M_PI / 2;
+                if(map[i][j] == 'W')
+                    player->rotationAngle = M_PI;
+                if(map[i][j] == 'E')
+                    player->rotationAngle = 2 * M_PI;
+                    
                 return ;
             }
                 j++;
@@ -132,11 +141,11 @@ int main(int ac, char **av)
     mlx = mlx_init();
     win = mlx_new_window(mlx, 64 * 15, 64 * 10, "window");
     t_strings *strings = retrieving(ac, av);
+
     char **map = strings->map;
     player->longest_row = get_longest_row(strings->map);
     player->get_num_rows = get_num_rows(strings->map);
     map = pad_map(map,player->get_num_rows, player->longest_row, '1');
-
     locate_player(player, map);
     setting_imgs_and_data(texture, mlx, "wall_texture.xpm");
     setting_imgs_and_data(texture2, mlx, "tswiraaaa.xpm");

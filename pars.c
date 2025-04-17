@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:10 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/16 17:49:28 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:43:21 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -477,22 +477,21 @@ t_strings *retrieving(int ac, char **av)
 	char **colors;
 	char *c_color;
 	char **rgb_c_color;
-	t_strings strings;
+	t_strings *strings;
 	
-	printf("%d\n", ac);
+	strings = malloc(sizeof(t_strings));
 	fd = openfd(av[1]);
 	strs = store_2d_array(fd);
 	check_order(strs);
 	check_invalid_inf(strs);
-	strings.texturs = store_text(strs);
-	// cheak_path(strings.texturs);
+	strings->texturs = store_text(strs);
 	colors = store_colors(strs);
 	c_color = get_c_color(colors);
 	rgb_c_color = store_c_coloras2d(c_color);
-	strings.map = store_map(strs);
-	strings.map = spaces_to_walls(strings.map);
-	only_6_char(strings.map);
-	check_new_line(strings.map);
-	check_map(strings.map);
-	return &strings;
+	strings->map = store_map(strs);
+	strings->map = spaces_to_walls(strings->map);
+	only_6_char(strings->map);
+	check_new_line(strings->map);
+	check_map(strings->map);
+	return strings;
 }
