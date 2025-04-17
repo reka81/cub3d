@@ -69,7 +69,7 @@ typedef struct s_player{
     double rotationspeed;
     int get_num_rows;
     int longest_row;
-    char (*staticArray)[32];
+    char **staticArray;
     void *mlx;
     void *win;
     t_ray *rays;
@@ -85,7 +85,7 @@ int update_map(t_player *player);
 t_ray *cast_rays(t_player *player);
 void render(t_player * player, t_ray *ray, int j);
 void draw_player(t_player *player, void *win, void *mlx);
-void player_init(t_player *player, char (*staticArray)[32], void *mlx, void *win);
+void player_init(t_player *player, char **staticArray, void *mlx, void *win);
 int its_a_wall(double x, double y, t_player *player);
 void put_pixel_to_buffer(char *buffer, int x, int y, int color, int size_line, int bits_per_pixel);
 void draw_line(t_player *player, void *mlx , void *win);

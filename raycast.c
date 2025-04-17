@@ -123,10 +123,8 @@ void ray_casting(t_player *player, int i, t_ray *rays) {
 
     check_vertical_inter(player, rays, i);
     check_horizontal_inter(player, rays, i);
-
     double horizontal_hit = rays[i].wall_found ? distance_between(player->x, player->y, rays[i].wallhitx, rays[i].wallhity) : INT_MAX;
     double vertical_hit = rays[i].vert_wall_found ? distance_between(player->x, player->y, rays[i].vertwallhitx, rays[i].vertwallhity) : INT_MAX;
-
     if (horizontal_hit < vertical_hit) {
         rays[i].distance = horizontal_hit;
         rays[i].hit_vertical = 0;

@@ -23,7 +23,6 @@ void wall_draw_3d(int rays_num, t_ray *ray, void *win, void *mlx, t_player *play
     int wallheight = 0;
     int distanceProjectionPlane = (SCREEN_WIDTH / 2) / tan(FOV_ANGLE / 2);
     uint32_t *wall_texture;
-
     while (i < rays_num) {
         float corrected_distance = ray[i].distance * cos(ray[i].ray_angle - player->rotationAngle);
         wallheight = (TEXTURE_HEIGHT / corrected_distance) * distanceProjectionPlane;
@@ -42,7 +41,6 @@ void wall_draw_3d(int rays_num, t_ray *ray, void *win, void *mlx, t_player *play
 
         if (wall_top < 0) wall_top = 0;
         if (wall_bottom >= SCREEN_HEIGHT) wall_bottom = SCREEN_HEIGHT - 1;
-
         for (int y = 0; y < wall_top; y++) {
             put_pixel_to_buffer(player->buffer, i, y, 0x87CEEB, player->size_line, player->bits_per_pixel);
         }

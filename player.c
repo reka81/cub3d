@@ -25,10 +25,11 @@ int its_a_wall(double x, double y, t_player *player)
         return(0);
 }
 
-void player_init(t_player *player, char staticArray[15][32], void *mlx, void *win)
+void player_init(t_player *player, char **staticArray, void *mlx, void *win)
 {
-    player->x = 64 * player->longest_row /2;
-    player->y = 64 * player->get_num_rows /2;
+    // player->x = 64 * player->longest_row /2;
+    // player->y = 64 * player->get_num_rows /2;
+    // printf("%d--%d\n",  player->longest_row /2, player->get_num_rows /2);
     player->radius = 9;
     player->turn_direction = 0;
     player->walkdirection = 0;

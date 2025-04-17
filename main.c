@@ -68,27 +68,45 @@ int get_longest_row(char **map) {
 char **pad_map(char **map, int num_rows, int longest_row, char pad_char) {
     int i;
 
-    // Allocate one extra row for the NULL terminator
     char **padded_map = malloc(sizeof(char *) * (num_rows + 1));
     if (!padded_map) return NULL;
 
     for (i = 0; i < num_rows; i++) {
+        
         int len = ft_strlen(map[i]);
-        padded_map[i] = malloc(longest_row + 1); // +1 for null terminator
+        padded_map[i] = malloc(longest_row + 1);
         if (!padded_map[i]) return NULL;
 
-        // Copy original content
         ft_strcpy(padded_map[i], map[i]);
 
-        // Pad with pad_char if needed
         for (int j = len; j < longest_row; j++) {
             padded_map[i][j] = pad_char;
         }
-        padded_map[i][longest_row] = '\0'; // Null terminate the string
+        padded_map[i][longest_row] = '\0'; 
     }
 
-    padded_map[num_rows] = NULL; // Null terminate the array of strings
+    padded_map[num_rows] = NULL; 
     return padded_map;
+}
+void locate_player(t_player * player, char **map)
+{
+    int i = 0;
+    int j =0;
+    while(map[i])
+    {
+        j = 0;
+        while(map[i][j])
+        {
+            if(map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'E')
+            {
+                player->x = 64 * j;
+                player->y = 64 * i;
+                return ;
+            }
+                j++;
+        }
+        i++;
+    }
 }
 int main(int ac, char **av)
 {
@@ -104,24 +122,6 @@ int main(int ac, char **av)
     t_texture *texture3;
     t_texture *texture4;
 
-char staticArray[15][32] = {
-    {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','C','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','\n','\0'},
-    {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','\n','\0'}
-};
-
     textures = malloc (sizeof(t_texture) * 4);
     texture = malloc(sizeof(t_texture));
     texture2 = malloc(sizeof(t_texture));
@@ -131,16 +131,13 @@ char staticArray[15][32] = {
     player = malloc(sizeof(t_player));
     mlx = mlx_init();
     win = mlx_new_window(mlx, 64 * 15, 64 * 10, "window");
-    // t_strings *strings = retrieving(ac, av);
-    // char **map = strings->map;
-    // // printf("%d--%d\n",player->longest_row, player->get_num_rows);
-    // map = pad_map(strings->map,player->get_num_rows, player->longest_row, '1');
-    // player->longest_row = get_longest_row(strings->map);
-    // player->get_num_rows = get_num_rows(strings->map);
-        // player->longest_row = get_longest_row(strings->map);
-    // player->get_num_rows = get_num_rows(strings->map);
-           player->longest_row = 30;
-    player->get_num_rows = 15;
+    t_strings *strings = retrieving(ac, av);
+    char **map = strings->map;
+    player->longest_row = get_longest_row(strings->map);
+    player->get_num_rows = get_num_rows(strings->map);
+    map = pad_map(map,player->get_num_rows, player->longest_row, '1');
+
+    locate_player(player, map);
     setting_imgs_and_data(texture, mlx, "wall_texture.xpm");
     setting_imgs_and_data(texture2, mlx, "tswiraaaa.xpm");
     setting_imgs_and_data(texture3, mlx, "east_walls.xpm");
@@ -148,7 +145,7 @@ char staticArray[15][32] = {
     player->texture = texture;
     void *img = mlx_new_image(mlx, 64 * 15 , 64 * 10);
     char *buffer = mlx_get_data_addr(img, &bits_per_pixel, &size_line, &endian);
-    player_init(player, staticArray, mlx, win);
+    player_init(player, map, mlx, win);
     player->buffer = buffer;
     player->size_line = size_line;
     player->img = img;
