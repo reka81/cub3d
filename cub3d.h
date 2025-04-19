@@ -77,6 +77,23 @@ typedef struct s_player{
     t_texture **textures;
 }t_player;
 
+typedef struct s_game{
+    void *mlx;
+    void *win;
+    t_player *player;
+    int bits_per_pixel;
+    int size_line;
+    int endian;
+    char **map;
+    t_texture **textures;
+    t_texture *texture;
+    t_texture *texture2;
+    t_texture *texture3;
+    t_texture *texture4;
+    t_strings *strings;
+    char *buffer;
+    void *img;
+}t_game;
 
 void draw_player(t_player *player, void *win, void *mlx);
 int update_player2(int keycode, t_player *player);
@@ -91,4 +108,21 @@ void put_pixel_to_buffer(char *buffer, int x, int y, int color, int size_line, i
 void draw_line(t_player *player, void *mlx , void *win);
 void draw_image(char staticArray[10][17] , void *mlx , void*win, void *img, char* buffer, int size_line, int bits_per_pizel);
 t_strings *retrieving(int ac, char **av);
+void	put_pixel_to_buffer(char *buffer, int x, int y, int color,
+			int size_line, int bits_per_pixel);
+void	texture_init(t_texture *texture, t_texture *texture2);
+char	*ft_strcpy(char *dest, const char *src);
+void	setting_imgs_and_data(t_texture *texture, void *mlx, char *string);
+void	init_vars_mlx(void *win, void *mlx, t_player *player);
+int     get_num_rows(char **array);
+int     get_longest_row(char **map);
+char	**pad_map(char **map, int num_rows, int longest_row, char pad_char);
+void	setting_angle(char **map, t_player *player, int i, int j);
+void	locate_player(t_player *player, char **map);
+double	distance_between(double player_x, double player_y,
+		double wall_hitx, double wall_hity);
+void	check_horizontal_inter2(t_ray *rays, int i, t_player *player);
+void	check_horizontal_inter3(t_ray *rays, t_player *player, int i);
+void	check_horizontal_inter(t_player *player, t_ray *rays, int i);
+int	its_a_wall2(double x, double y, t_player *player);
 #endif

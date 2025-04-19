@@ -3,7 +3,7 @@ CC = cc
 FLAGS =  -fsanitize=address -g
 RM = rm -rf
 
-SRCS = main.c map_rendering.c player.c raycast.c updating_player.c updating_map.c libft.c pars.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c get_next_line/ft_strdup.c get_next_line/ft_memcpy.c
+SRCS = main.c player.c raycast.c updating_player.c updating_map.c libft.c pars.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c get_next_line/ft_strdup.c get_next_line/ft_memcpy.c main_part2.c main_part3.c raycast2.c
 OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)
