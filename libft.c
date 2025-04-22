@@ -6,16 +6,18 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:04:47 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/14 13:18:10 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:16:59 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int i = 0;
-	while(s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	int	i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
 	return (s1[i] - s2[i]);
 }
