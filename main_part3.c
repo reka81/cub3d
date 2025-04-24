@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 14:02:48 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/19 14:02:50 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:12:16 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,25 @@ char	**pad_map(char **map, int num_rows, int longest_row, char pad_char)
 	int		i;
 	char	**padded_map;
 	int		len;
+	int		j;
 
 	padded_map = malloc(sizeof(char *) * (num_rows + 1));
 	if (!padded_map)
 		return (NULL);
-	for (i = 0; i < num_rows; i++)
+	i = 0;
+	while (i < num_rows)
 	{
 		len = ft_strlen(map[i]);
 		padded_map[i] = malloc(longest_row + 1);
 		if (!padded_map[i])
 			return (NULL);
 		ft_strcpy(padded_map[i], map[i]);
-		for (int j = len; j < longest_row; j++)
+		j = len;
+		while (j < longest_row)
 		{
-			padded_map[i][j] = pad_char;
+			padded_map[i][j++] = pad_char;
 		}
-		padded_map[i][longest_row] = '\0';
+		padded_map[i++][longest_row] = '\0';
 	}
 	padded_map[num_rows] = NULL;
 	return (padded_map);
@@ -70,16 +73,16 @@ char	**pad_map(char **map, int num_rows, int longest_row, char pad_char)
 
 void	setting_angle(char **map, t_player *player, int i, int j)
 {
-	player->x = 64 * j;
-	player->y = 64 * i;
+	player->x = 64 * j + 0.5f;
+	player->y = 64 * i +0.5f;
 	if (map[i][j] == 'N')
-		player->rotationAngle = M_PI / 2;
+		player->rotationangle = M_PI / 2;
 	if (map[i][j] == 'S')
-		player->rotationAngle = 3 * M_PI / 2;
+		player->rotationangle = 3 * M_PI / 2;
 	if (map[i][j] == 'W')
-		player->rotationAngle = M_PI;
+		player->rotationangle = M_PI;
 	if (map[i][j] == 'E')
-		player->rotationAngle = 2 * M_PI;
+		player->rotationangle = 2 * M_PI;
 }
 
 void	locate_player(t_player *player, char **map)
