@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:11:54 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/22 18:12:48 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:07:33 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,16 @@ void	wall_draw_3d(int rays_num, t_ray *ray, t_player *player)
 	mlx_put_image_to_window(player->mlx, player->win, player->img, 0, 0);
 }
 
+void	update_map2(t_player *player,
+			double next_player_x, double next_player_y)
+{
+	if (!its_a_wall(next_player_x, next_player_y, player))
+	{
+		player->x = next_player_x;
+		player->y = next_player_y;
+	}
+}
+
 int	update_map(t_player *player)
 {
 	double	step;
@@ -50,11 +60,7 @@ int	update_map(t_player *player)
 	player->rotationangle += player->turn_direction * player->rotationspeed;
 	next_player_x = player->x + cos(player->rotationangle) * step;
 	next_player_y = player->y - sin(player->rotationangle) * step;
-	if (!its_a_wall(next_player_x, next_player_y, player))
-	{
-		player->x = next_player_x;
-		player->y = next_player_y;
-	}
+	update_map2(player, next_player_x, next_player_y);
 	if (player->rotationangle < 0)
 		player->rotationangle += 2 * M_PI;
 	if (player->rotationangle > 2 * M_PI)

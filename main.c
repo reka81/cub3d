@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:25:48 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/19 14:01:00 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:22:09 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int ac, char **av)
 	game->player->longest_row = get_longest_row(game->strings->map);
 	game->player->get_num_rows = get_num_rows(game->strings->map);
 	game->map = pad_map(game->map,
-			game->player->get_num_rows, game->player->longest_row, '1');
+			game->player->get_num_rows, game->player->longest_row, '0');
 	locate_player(game->player, game->map);
 	setting_imgs_and_data(game->texture, game->mlx, "wall_texture.xpm");
 	setting_imgs(game->texture2, game->texture3, game->texture4, game->mlx);
@@ -72,11 +72,6 @@ int	main(int ac, char **av)
 	player_init(game->player, game->map, game->mlx, game->win);
 	assigning_values_to_player(game->player, game->buffer,
 		game->img, game->size_line);
-	game->player->bits_per_pixel = game->bits_per_pixel;
-	game->textures[0] = game->texture;
-	game->textures[1] = game->texture2;
-	game->textures[2] = game->texture3;
-	game->textures[3] = game->texture4;
-	game->player->textures = game->textures;
-	init_vars_mlx(game->win, game->mlx, game->player);
+	filling_textures(game);
+	init_vars_mlx(game->win, game->mlx, game->player, game);
 }

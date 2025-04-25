@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:49:08 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/22 17:38:03 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:14:36 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,17 @@ int	draw_mid(int y, t_wall_clumper *info, t_player *player, t_ray *ray)
 {
 	uint32_t		color;
 
+	y = 0;
+	while (y < info->wall_top)
+	{
+		put_pixel_to_buffer(info->i, y, player->c_color, player);
+		y++;
+	}
 	while (y <= info->wall_bottom)
 	{
 		color = find_color(&ray[info->i], y, info, player->texture);
-		put_pixel_to_buffer(player->buffer, info->i, y++, color,
-			player->size_line, player->bits_per_pixel);
+		put_pixel_to_buffer(info->i, y, color, player);
+		y++;
 	}
 	return (y);
 }
@@ -84,12 +90,10 @@ void	draw(t_ray *ray, int i, t_player *player, int wallheight)
 		info->wall_top = 0;
 	if (info->wall_bottom >= SCREEN_HEIGHT)
 		info->wall_bottom = SCREEN_HEIGHT - 1;
-	y = 0;
-	while (y < info->wall_top)
-		put_pixel_to_buffer(player->buffer, i, y++, 0x87CEEB,
-			player->size_line, player->bits_per_pixel);
 	y = draw_mid(y, info, player, ray);
 	while (y < SCREEN_HEIGHT)
-		put_pixel_to_buffer(player->buffer, i, y++, 0x808080,
-			player->size_line, player->bits_per_pixel);
+	{
+		put_pixel_to_buffer(i, y, player->f_color, player);
+		y++;
+	}
 }

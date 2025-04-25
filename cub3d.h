@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:52:45 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/23 16:36:47 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:07:14 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ typedef struct s_player
 	char		**staticarray;
 	void		*mlx;
 	void		*win;
+	int			c_color;
+	int			f_color;
 	t_ray		*rays;
 	t_texture	*texture;
 	t_texture	**textures;
@@ -117,6 +119,13 @@ typedef struct s_wallclump
 	int			i;
 }	t_wall_clumper;
 
+typedef struct s_pixel_draw
+{
+	int	x;
+	int	y;
+	int	size_line;
+}	t_pixel_draw;
+
 void		draw_player(t_player *player, void *win, void *mlx);
 int			update_player2(int keycode, t_player *player);
 int			update_player(int keycode, t_player *player);
@@ -129,12 +138,11 @@ void		player_init(t_player *player, char **staticArray,
 int			its_a_wall(double x, double y, t_player *player);
 void		draw_line(t_player *player, void *mlx, void *win);
 t_strings	*retrieving(int ac, char **av);
-void		put_pixel_to_buffer(char *buffer, int x, int y, int color,
-				int size_line, int bits_per_pixel);
+void		put_pixel_to_buffer(int x, int y, int color, t_player *player);
 void		texture_init(t_texture *texture, t_texture *texture2);
 char		*ft_strcpy(char *dest, const char *src);
 void		setting_imgs_and_data(t_texture *texture, void *mlx, char *string);
-void		init_vars_mlx(void *win, void *mlx, t_player *player);
+void		init_vars_mlx(void *win, void *mlx, t_player *player, t_game *game);
 int			get_num_rows(char **array);
 int			get_longest_row(char **map);
 char		**pad_map(char **map, int num_rows, int longest_row, char pad_char);
@@ -153,4 +161,5 @@ void		ray_casting2(t_ray *rays, int i);
 void		ray_casting3(double horizontal_hit, double vertical_hit,
 				t_ray *rays, int i);
 void		check_vertical_inter(t_player *player, t_ray *rays, int i);
+void		filling_textures(t_game *game);
 #endif

@@ -6,21 +6,20 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 14:02:54 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/19 14:04:28 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:06:49 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_pixel_to_buffer(char *buffer, int x, int y, int color,
-			int size_line, int bits_per_pixel)
+void	put_pixel_to_buffer(int x, int y, int color, t_player *player)
 {
 	int	pixel;
 
 	if (x < 0 || x >= 64 * 15 || y < 0 || y >= 64 * 10)
 		return ;
-	pixel = (y * size_line) + (x * (bits_per_pixel / 8));
-	*(unsigned int *)(buffer + pixel) = color;
+	pixel = (y * player->size_line) + (x * (player->bits_per_pixel / 8));
+	*(unsigned int *)(player->buffer + pixel) = color;
 }
 
 void	texture_init(t_texture *texture, t_texture *texture2)
@@ -59,8 +58,10 @@ void	setting_imgs_and_data(t_texture *texture, void *mlx, char *string)
 			&texture->size_line, &texture->endian);
 }
 
-void	init_vars_mlx(void *win, void *mlx, t_player *player)
+void	init_vars_mlx(void *win, void *mlx, t_player *player, t_game *game)
 {
+	player->c_color = game->strings->C_color;
+	player->f_color = game->strings->F_color;
 	mlx_hook(win, 2, 0, &update_player, player);
 	mlx_hook(win, 3, 0, &update_player2, player);
 	mlx_loop_hook(mlx, &update_map, player);
