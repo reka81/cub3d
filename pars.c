@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:10 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/25 15:37:44 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**store_text(char **strs)
 
 	i = 0;
 	j = 0;
-	textures = (char **)malloc(sizeof(char *) * 1000);
+	textures = (char **)zyalloc(sizeof(char *) * 1000);
 	while (strs[i])
 	{
 		if (strs[i][0] == 'N' && strs[i][1] == 'O' || strs[i][0] == 'S'
@@ -68,8 +68,8 @@ void	check_new_line(char **strs)
 
 void	allocating(t_strings **strings, t_pars **parsing, char **av)
 {
-	*strings = malloc(sizeof(t_strings));
-	*parsing = malloc(sizeof(t_pars));
+	*strings = zyalloc(sizeof(t_strings));
+	*parsing = zyalloc(sizeof(t_pars));
 	(*parsing)->fd = openfd(av[1]);
 	(*parsing)->strs = store_2d_array((*parsing)->fd);
 }
@@ -90,11 +90,11 @@ t_strings	*retrieving(int ac, char **av)
 	parsing->colors = store_colors(parsing->strs);
 	parsing->c_color = get_c_color(parsing->colors);
 	rgb_c_color = store_c_coloras2d(parsing->c_color);
-	strings->C_color = rgb_to_int(rgb_c_color);
+	strings->c_color = rgb_to_int(rgb_c_color);
 	strings->map = store_map(parsing->strs);
 	f_color = get_f_color(parsing->colors);
 	rgb_f_color = store_f_coloras2d(f_color);
-	strings->F_color = rgb_to_int(rgb_f_color);
+	strings->f_color = rgb_to_int(rgb_f_color);
 	check_map_surrounded(strings->map);
 	strings->map = spaces_to_walls(strings->map);
 	only_6_char(strings->map);

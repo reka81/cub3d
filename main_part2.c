@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 14:02:54 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/25 12:06:49 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 10:48:57 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	setting_imgs_and_data(t_texture *texture, void *mlx, char *string)
 
 void	init_vars_mlx(void *win, void *mlx, t_player *player, t_game *game)
 {
-	player->c_color = game->strings->C_color;
-	player->f_color = game->strings->F_color;
+	player->c_color = game->strings->c_color;
+	player->f_color = game->strings->f_color;
 	mlx_hook(win, 2, 0, &update_player, player);
 	mlx_hook(win, 3, 0, &update_player2, player);
 	mlx_loop_hook(mlx, &update_map, player);

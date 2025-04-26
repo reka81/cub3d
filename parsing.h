@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:32:31 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/25 12:00:03 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 10:54:41 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ char	**ft_split(char const *s, char c);
 typedef struct s_strings
 {
 	char	**texturs;
-	int		C_color;
-	int		F_color;
+	int		c_color;
+	int		f_color;
 	char	**map;
 }	t_strings;
 
@@ -80,4 +80,5 @@ void	only_6_char(char **strs);
 int		ft_strslen(char **strs);
 void	struct_fill(t_store_clrs **storing);
 int		if_only_spaces(char *str);
+void	*zyalloc(long long size);
 #endif

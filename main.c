@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:25:48 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/25 13:22:09 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 void	allocating_for_textures(t_texture **texture, t_texture **texture2,
 			t_texture **texture3, t_texture **texture4)
 {
-	*texture = malloc(sizeof(t_texture));
-	*texture2 = malloc(sizeof(t_texture));
-	*texture3 = malloc(sizeof(t_texture));
-	*texture4 = malloc(sizeof(t_texture));
+	*texture = zyalloc(sizeof(t_texture));
+	*texture2 = zyalloc(sizeof(t_texture));
+	*texture3 = zyalloc(sizeof(t_texture));
+	*texture4 = zyalloc(sizeof(t_texture));
 }
 
 void	setting_imgs(t_texture *texture2, t_texture *texture3,
@@ -41,17 +41,21 @@ void	assigning_values_to_player(t_player *player, char *buffer,
 void	assigning_some_values(t_texture ***textures,
 			t_player **player, void **mlx, void **win)
 {
-	*textures = malloc (sizeof(t_texture) * 4);
-	*player = malloc(sizeof(t_player));
+	*textures = zyalloc (sizeof(t_texture) * 4);
+	*player = zyalloc(sizeof(t_player));
 	*mlx = mlx_init();
 	*win = mlx_new_window(*mlx, 64 * 15, 64 * 10, "window");
 }
-
+void f()
+{
+	system("leaks cub3d");
+}
 int	main(int ac, char **av)
 {
+	atexit(f);
 	t_game	*game;
 
-	game = malloc(sizeof(t_game));
+	game = zyalloc(sizeof(t_game));
 	assigning_some_values(&game->textures,
 		&game->player, &game->mlx, &game->win);
 	allocating_for_textures(&game->texture, &game->texture2,

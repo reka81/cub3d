@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 14:02:48 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/22 18:12:16 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 11:32:12 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ char	**pad_map(char **map, int num_rows, int longest_row, char pad_char)
 	int		len;
 	int		j;
 
-	padded_map = malloc(sizeof(char *) * (num_rows + 1));
+	padded_map = zyalloc(sizeof(char *) * (num_rows + 1));
 	if (!padded_map)
 		return (NULL);
 	i = 0;
 	while (i < num_rows)
 	{
 		len = ft_strlen(map[i]);
-		padded_map[i] = malloc(longest_row + 1);
+		padded_map[i] = zyalloc(longest_row + 1);
 		if (!padded_map[i])
 			return (NULL);
 		ft_strcpy(padded_map[i], map[i]);

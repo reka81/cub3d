@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:20:32 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/25 11:02:24 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**store_colors(char **strs)
 
 	i = 0;
 	d = 0;
-	colors = malloc(sizeof(char *) * 100);
+	colors = zyalloc(sizeof(char *) * 100);
 	while (strs[i])
 	{
 		if (strs[i][0] == 'F' || strs[i][0] == 'C')
@@ -43,7 +43,7 @@ char	*get_c_color(char **colors)
 
 	i = 0;
 	e = 0;
-	c_color = malloc(12);
+	c_color = zyalloc(12);
 	while (colors[i])
 	{
 		if (colors[i][0] == 'C')
@@ -71,7 +71,7 @@ char	*get_f_color(char **colors)
 
 	i = 0;
 	e = 0;
-	c_color = malloc(12);
+	c_color = zyalloc(12);
 	while (colors[i])
 	{
 		if (colors[i][0] == 'F')

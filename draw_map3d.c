@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:49:08 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/25 12:14:36 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 11:15:48 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	draw_mid(int y, t_wall_clumper *info, t_player *player, t_ray *ray)
 		put_pixel_to_buffer(info->i, y, color, player);
 		y++;
 	}
+	free(info);
 	return (y);
 }
 

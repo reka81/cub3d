@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:52:45 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/25 12:07:14 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 10:54:50 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define SCREEN_WIDTH 960
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
+
+typedef struct s_garbage
+{
+	void				*address;
+	struct s_garbage	*next;
+}	t_garbage;
 
 typedef struct s_ray
 {
@@ -162,4 +168,5 @@ void		ray_casting3(double horizontal_hit, double vertical_hit,
 				t_ray *rays, int i);
 void		check_vertical_inter(t_player *player, t_ray *rays, int i);
 void		filling_textures(t_game *game);
+void		*zyalloc(long long size);
 #endif

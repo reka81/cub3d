@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:28:37 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/24 15:27:32 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**store_2d_array(int fd)
 	int		i;
 
 	i = 0;
-	strs = malloc(100 * sizeof(char *));
+	strs = zyalloc(100 * sizeof(char *));
 	strs[i] = get_next_line(fd);
 	while (strs[i] != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:13:05 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/25 11:59:45 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**store_map(char **strs)
 	int		e;
 
 	i = 0;
-	map = malloc(100 * sizeof(char *));
+	map = zyalloc(100 * sizeof(char *));
 	e = 0;
 	while (strs[i])
 	{
@@ -91,7 +91,7 @@ void	check_map(char **strs)
 {
 	t_map_check	*check_map;
 
-	check_map = malloc(sizeof(t_map_check));
+	check_map = zyalloc(sizeof(t_map_check));
 	check_map->e = 0;
 	check_map->i = 0;
 	check_map->len = ft_strslen(strs);

@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:57:33 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/25 11:59:32 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	struct_fill(t_store_clrs **storing)
 {
-	*storing = malloc(sizeof(t_store_clrs));
-	(*storing)->rgb_f_color = malloc(sizeof(char *) * 4);
-	(*storing)->rgb_f_color[0] = malloc(4);
-	(*storing)->rgb_f_color[1] = malloc(4);
-	(*storing)->rgb_f_color[2] = malloc(4);
+	*storing = zyalloc(sizeof(t_store_clrs));
+	(*storing)->rgb_f_color = zyalloc(sizeof(char *) * 4);
+	(*storing)->rgb_f_color[0] = zyalloc(4);
+	(*storing)->rgb_f_color[1] = zyalloc(4);
+	(*storing)->rgb_f_color[2] = zyalloc(4);
 	(*storing)->i = 0;
 	(*storing)->j = 0;
 	(*storing)->e = 0;
