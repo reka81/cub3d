@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:47:09 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/25 15:37:30 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:33:03 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,21 @@ void	cheak_path(char **strs)
 		}
 		i++;
 	}
+}
+
+char	*store_texture(char **textures, char *type)
+{
+	int		i;
+	char	*texture;
+
+	i = 0;
+	while (textures[i])
+	{
+		if (textures[i][0] == type[0] && textures[i][1] == type[1])
+		{
+			texture = get_path(textures[i]);
+		}
+		i++;
+	}
+	return (texture);
 }

@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:20:32 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:30:49 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ char	**store_colors(char **strs)
 	int		i;
 	int		d;
 	char	**colors;
+	int		err;
 
+	err = 0;
 	i = 0;
 	d = 0;
 	colors = zyalloc(sizeof(char *) * 100);
@@ -27,8 +29,14 @@ char	**store_colors(char **strs)
 		{
 			colors[d] = strs[i];
 			d++;
+			err++;
 		}
 		i++;
+	}
+	if (err != 2)
+	{
+		printf("error ; color not found");
+		exit(1);
 	}
 	colors[d] = NULL;
 	return (colors);
@@ -42,19 +50,25 @@ char	*get_c_color(char **colors)
 	char	*c_color;
 
 	i = 0;
-	e = 0;
 	c_color = zyalloc(12);
 	while (colors[i])
 	{
+		j = 0;
+		e = 0;
 		if (colors[i][0] == 'C')
 		{
-			j = 0;
-			while (colors[i][j])
-				if ((colors[i][j] >= '0' && colors[i][j] <= '9')
-					|| colors[i][j] == ',')
-					c_color[e++] = colors[i][j++];
-			else
+			while (colors[i][j] == 'C' || colors[i][j] == ' ')
+			{
 				j++;
+			}
+			while (colors[i][j])
+			{
+				c_color[e] = colors[i][j];
+				j++;
+				e++;
+			}
+			c_color[e] = '\0';
+			break ;
 		}
 		i++;
 	}
@@ -65,24 +79,29 @@ char	*get_c_color(char **colors)
 char	*get_f_color(char **colors)
 {
 	int		i;
+	int		e;
 	int		j;
 	char	*c_color;
-	int		e;
 
 	i = 0;
-	e = 0;
 	c_color = zyalloc(12);
 	while (colors[i])
 	{
+		j = 0;
+		e = 0;
 		if (colors[i][0] == 'F')
 		{
-			j = 0;
-			while (colors[i][j])
-				if ((colors[i][j] >= '0' && colors[i][j] <= '9')
-					|| colors[i][j] == ',')
-					c_color[e++] = colors[i][j++];
-			else
+			while (colors[i][j] == 'F' || colors[i][j] == ' ')
+			{
 				j++;
+			}
+			while (colors[i][j])
+			{
+				c_color[e] = colors[i][j];
+				j++;
+				e++;
+			}
+			break ;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:37:19 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/24 15:40:04 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:32:47 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,14 @@ int	ft_isspace(char c)
 
 int	is_identifier_line(const char *line)
 {
-	while (*line == ' ')
+	if (strncmp(line, "NO", 2) == 0 && ft_isspace(line[2])
+		|| strncmp(line, "SO", 2) == 0 && ft_isspace(line[2])
+		|| strncmp(line, "WE", 2) == 0 && ft_isspace(line[2])
+		|| strncmp(line, "EA", 2) == 0 && ft_isspace(line[2])
+		|| line[0] == 'F' && ft_isspace(line[1])
+		|| line[0] == 'C' && ft_isspace(line[1]))
 	{
-		if (strncmp(line, "NO", 2) == 0 && ft_isspace(line[2])
-			|| strncmp(line, "SO", 2) == 0 && ft_isspace(line[2])
-			|| strncmp(line, "WE", 2) == 0 && ft_isspace(line[2])
-			|| strncmp(line, "EA", 2) == 0 && ft_isspace(line[2])
-			|| line[0] == 'F' && ft_isspace(line[1])
-			|| line[0] == 'C' && ft_isspace(line[1]))
-		{
-			return (0);
-		}
-		line++;
+		return (0);
 	}
 	return (1);
 }
@@ -53,15 +49,12 @@ int	maybe_map_line(const char *line)
 {
 	char	c;
 
-	while (*line)
+	if ((line[0] != 'N' && line[1] != 'O' && line[0] != 'S'
+			&& line[1] != 'O' && line[0] != 'W' && line[1] != 'E'
+			&& line[0] != 'E' && line[1] != 'A') && (line[0] != 'F'
+			&& line[0] != 'C' && line[0] != 0))
 	{
-		c = *line;
-		if (c == '0' || c == '1' || c == 'N' || c == 'S'
-			|| c == 'E' || c == 'W' || c == ' ')
-		{
-			return (0);
-		}
-		line++;
+		return (0);
 	}
 	return (1);
 }

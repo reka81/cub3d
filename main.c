@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 13:25:48 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:35:47 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ void	allocating_for_textures(t_texture **texture, t_texture **texture2,
 	*texture4 = zyalloc(sizeof(t_texture));
 }
 
-void	setting_imgs(t_texture *texture2, t_texture *texture3,
-			t_texture *texture4, void *mlx)
+void	setting_imgs(t_game *game, void *mlx)
 {
-	setting_imgs_and_data(texture2, mlx, "tswiraaaa.xpm");
-	setting_imgs_and_data(texture3, mlx, "east_walls.xpm");
-	setting_imgs_and_data(texture4, mlx, "west_wall.xpm");
+	setting_imgs_and_data(game->texture2, mlx, game->strings->so_texture);
+	setting_imgs_and_data(game->texture3, mlx, game->strings->ea_texture);
+	setting_imgs_and_data(game->texture4, mlx, game->strings->we_texture);
 }
 
 void	assigning_values_to_player(t_player *player, char *buffer,
@@ -46,13 +45,9 @@ void	assigning_some_values(t_texture ***textures,
 	*mlx = mlx_init();
 	*win = mlx_new_window(*mlx, 64 * 15, 64 * 10, "window");
 }
-void f()
-{
-	system("leaks cub3d");
-}
+
 int	main(int ac, char **av)
 {
-	atexit(f);
 	t_game	*game;
 
 	game = zyalloc(sizeof(t_game));
@@ -65,10 +60,10 @@ int	main(int ac, char **av)
 	game->player->longest_row = get_longest_row(game->strings->map);
 	game->player->get_num_rows = get_num_rows(game->strings->map);
 	game->map = pad_map(game->map,
-			game->player->get_num_rows, game->player->longest_row, '0');
+			game->player->get_num_rows, game->player->longest_row, '1');
 	locate_player(game->player, game->map);
-	setting_imgs_and_data(game->texture, game->mlx, "wall_texture.xpm");
-	setting_imgs(game->texture2, game->texture3, game->texture4, game->mlx);
+	setting_imgs_and_data(game->texture, game->mlx, game->strings->no_texture);
+	setting_imgs(game, game->mlx);
 	game->player->texture = game->texture;
 	game->img = mlx_new_image(game->mlx, 64 * 15, 64 * 10);
 	game->buffer = mlx_get_data_addr(game->img, &game->bits_per_pixel,

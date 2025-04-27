@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:28:37 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:31:13 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,21 @@ int	openfd(char *str)
 char	**store_2d_array(int fd)
 {
 	char	**strs;
+	char	*line;
 	int		i;
 
 	i = 0;
 	strs = zyalloc(100 * sizeof(char *));
-	strs[i] = get_next_line(fd);
-	while (strs[i] != NULL)
+	line = get_next_line(fd);
+	if (line != NULL && line[0] != '\0')
+		strs[i++] = line;
+	while (line)
 	{
-		i++;
-		strs[i] = get_next_line(fd);
+		line = get_next_line(fd);
+		if (line != NULL && line[0] != '\0')
+			strs[i++] = line;
 	}
+	strs[i] = NULL;
 	return (strs);
 }
 

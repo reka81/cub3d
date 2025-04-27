@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:52:45 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/26 10:54:50 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:45:10 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_pixel_draw
 	int	size_line;
 }	t_pixel_draw;
 
+int			exit_window(t_player *player);
 void		draw_player(t_player *player, void *win, void *mlx);
 int			update_player2(int keycode, t_player *player);
 int			update_player(int keycode, t_player *player);

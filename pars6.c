@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:29 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/25 11:09:54 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:53:13 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ void	check_map_surrounded(char **map)
 	start_x = -1;
 	start_y = -1;
 	rows = 0;
-	while (map[rows])
+	while (map[rows++])
 	{
 		j = -1;
-		while (map[rows][++j])
+		while (map[rows - 1][++j])
 		{
-			if (map[rows][j] == 'N')
+			if (map[rows - 1][j] == 'N' || map[rows - 1][j] == 'E'
+				|| map[rows - 1][j] == 'W' || map[rows - 1][j] == 'S')
 			{
-				start_x = rows;
+				start_x = rows - 1;
 				start_y = j;
 			}
 		}
-		rows++;
 	}
 	if (start_x == -1 || start_y == -1)
 		error_exit("Player start 'N' not found in map.");

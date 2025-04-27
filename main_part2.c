@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 14:02:54 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/26 10:48:57 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:50:38 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	init_vars_mlx(void *win, void *mlx, t_player *player, t_game *game)
 	player->f_color = game->strings->f_color;
 	mlx_hook(win, 2, 0, &update_player, player);
 	mlx_hook(win, 3, 0, &update_player2, player);
+	mlx_hook(win, 17, 0, &exit_window, player);
 	mlx_loop_hook(mlx, &update_map, player);
 	mlx_clear_window(player->mlx, player->win);
 	mlx_loop(mlx);

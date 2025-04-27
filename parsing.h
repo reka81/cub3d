@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:32:31 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/26 10:54:41 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:48:04 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ char	**ft_split(char const *s, char c);
 typedef struct s_strings
 {
 	char	**texturs;
+	char	*no_texture;
+	char	*so_texture;
+	char	*ea_texture;
+	char	*we_texture;
 	int		c_color;
 	int		f_color;
 	char	**map;
@@ -80,5 +84,16 @@ void	only_6_char(char **strs);
 int		ft_strslen(char **strs);
 void	struct_fill(t_store_clrs **storing);
 int		if_only_spaces(char *str);
+void	cheak_path(char **strs);
+char	*store_texture(char **textures, char *type);
 void	*zyalloc(long long size);
+void	allocating(t_strings **strings, t_pars **parsing, char **av);
+char	**store_text(char **strs);
+int		rgb_to_int(char **rgb_c_color);
+void	check_new_line(char **strs);
+int		count_duplicate(char **strs, char *type);
+void	check_duplicate_textures(char **strs);
+void	check_duplicate_colors(char **strs);
+int		count_num_players(char **strs);
+void	check_duplicate_player(char **strs);
 #endif
