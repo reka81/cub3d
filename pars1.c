@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:20:32 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/27 22:30:49 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:57:10 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ char	**store_colors(char **strs)
 	{
 		if (strs[i][0] == 'F' || strs[i][0] == 'C')
 		{
-			colors[d] = strs[i];
-			d++;
+			colors[d++] = strs[i];
 			err++;
 		}
 		i++;
@@ -62,12 +61,7 @@ char	*get_c_color(char **colors)
 				j++;
 			}
 			while (colors[i][j])
-			{
-				c_color[e] = colors[i][j];
-				j++;
-				e++;
-			}
-			c_color[e] = '\0';
+				c_color[e++] = colors[i][j++];
 			break ;
 		}
 		i++;
@@ -96,11 +90,7 @@ char	*get_f_color(char **colors)
 				j++;
 			}
 			while (colors[i][j])
-			{
-				c_color[e] = colors[i][j];
-				j++;
-				e++;
-			}
+				c_color[e++] = colors[i][j++];
 			break ;
 		}
 		i++;

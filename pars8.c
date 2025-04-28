@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 22:48:36 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/27 22:48:37 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:48:47 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,14 @@ void	allocating(t_strings **strings, t_pars **parsing, char **av)
 	*parsing = zyalloc(sizeof(t_pars));
 	(*parsing)->fd = openfd(av[1]);
 	(*parsing)->strs = store_2d_array((*parsing)->fd);
+	check_invalid_inf((*parsing)->strs);
+	check_order((*parsing)->strs);
+	(*strings)->texturs = store_text((*parsing)->strs);
+	check_duplicate_textures((*strings)->texturs);
+	cheak_path((*strings)->texturs);
+	(*strings)->no_texture = store_texture((*strings)->texturs, "NO");
+	(*strings)->so_texture = store_texture((*strings)->texturs, "SO");
+	(*strings)->ea_texture = store_texture((*strings)->texturs, "EA");
+	(*strings)->we_texture = store_texture((*strings)->texturs, "WE");
+	(*parsing)->colors = store_colors((*parsing)->strs);
 }

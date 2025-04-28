@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:10 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/27 22:48:16 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:50:21 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ void	check_range(char **rgb_c_color)
 	}
 }
 
+void	err_code(int ind)
+{
+	if (ind != 2)
+	{
+		printf("error\n");
+		exit(1);
+	}
+}
+
 void	pars_color(char *color)
 {
 	int	i;
@@ -64,11 +73,7 @@ void	pars_color(char *color)
 		}
 		i++;
 	}
-	if (ind != 2)
-	{
-		printf("error\n");
-		exit(1);
-	}
+	err_code(ind);
 }
 
 t_strings	*retrieving(int ac, char **av)
@@ -80,16 +85,6 @@ t_strings	*retrieving(int ac, char **av)
 	t_strings	*strings;
 
 	allocating(&strings, &parsing, av);
-	check_invalid_inf(parsing->strs);
-	check_order(parsing->strs);
-	strings->texturs = store_text(parsing->strs);
-	check_duplicate_textures(strings->texturs);
-	cheak_path(strings->texturs);
-	strings->no_texture = store_texture(strings->texturs, "NO");
-	strings->so_texture = store_texture(strings->texturs, "SO");
-	strings->ea_texture = store_texture(strings->texturs, "EA");
-	strings->we_texture = store_texture(strings->texturs, "WE");
-	parsing->colors = store_colors(parsing->strs);
 	check_duplicate_colors(parsing->colors);
 	parsing->c_color = get_c_color(parsing->colors);
 	pars_color(parsing->c_color);
