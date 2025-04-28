@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:29 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/27 22:53:13 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:08:39 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	error_exit(const char *msg)
 
 void	flood_fill(char **map, int x, int y, int rows)
 {
-	if (x < 0 || y < 0 || x >= rows || y >= strlen(map[x]))
+	if (x < 0 || y < 0 || x >= rows || y >= (int)ft_strlen(map[x]))
 		error_exit("Map is not closed (escaped bounds).");
 	if (map[x][y] == ' ' || map[x][y] == '\0')
 		error_exit("Map is not closed (hit space or invalid area).");

@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:47:09 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/27 22:33:03 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:07:55 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*get_path(char *str)
 void	cheak_path(char **strs)
 {
 	int		i;
-	int		j;
 	char	*path;
 
 	i = 0;

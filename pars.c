@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:10 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/28 11:50:21 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:25:28 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	err_code(int ind)
 {
 	if (ind != 2)
 	{
-		printf("error\n");
+		printf("error : invalid color\n");
 		exit(1);
 	}
 }
@@ -56,9 +56,9 @@ void	pars_color(char *color)
 	i = 0;
 	while (color[i] != '\0')
 	{
-		if (color[i] != ',' && color[i] < '0' || color[i] > '9')
+		if ((color[i] != ',' && color[i] < '0') || color[i] > '9')
 		{
-			printf("error\n");
+			printf("error : invalid color\n");
 			exit(1);
 		}
 		else if (color[i] == ',')
@@ -67,7 +67,7 @@ void	pars_color(char *color)
 			if ((color[i + 1] < '0' || color[i + 1] > '9')
 				|| (color[i - 1] < '0' || color[i - 1] > '9'))
 			{
-				printf("error\n");
+				printf("error : invalid color\n");
 				exit(1);
 			}
 		}
@@ -84,6 +84,7 @@ t_strings	*retrieving(int ac, char **av)
 	char		**rgb_f_color;
 	t_strings	*strings;
 
+	check_correct_num_args(ac);
 	allocating(&strings, &parsing, av);
 	check_duplicate_colors(parsing->colors);
 	parsing->c_color = get_c_color(parsing->colors);

@@ -6,18 +6,11 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:28:37 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/27 22:31:13 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:08:08 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-int	cheak_name(char *str)
-{
-	if (ft_strcmp(str + ft_strlen(str) - 4, ".cub") == 0)
-		return (0);
-	return (1);
-}
 
 int	openfd(char *str)
 {
@@ -28,26 +21,48 @@ int	openfd(char *str)
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
 		{
-			printf("error\n");
+			printf("error : open failed\n");
 			exit(1);
 		}
 	}
 	else
 	{
-		printf("error\n");
+		printf("error : invalid map name\n");
 		exit(1);
 	}
 	return (fd);
 }
 
-char	**store_2d_array(int fd)
+int	num_lines(int fd)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = get_next_line(fd);
+	i++;
+	if (line == NULL)
+	{
+		return (i);
+	}
+	while (line)
+	{
+		line = get_next_line(fd);
+		i++;
+	}
+	return (i);
+}
+
+char	**store_2d_array(int fd, char *str)
 {
 	char	**strs;
 	char	*line;
 	int		i;
 
 	i = 0;
-	strs = zyalloc(100 * sizeof(char *));
+	strs = zyalloc(sizeof(char *) * num_lines(fd) + 1);
+	close(fd);
+	fd = open(str, O_RDONLY);
 	line = get_next_line(fd);
 	if (line != NULL && line[0] != '\0')
 		strs[i++] = line;
@@ -94,9 +109,10 @@ void	check_order(char **strs)
 		{
 			if (check_map_line(strs[len]) == 1)
 			{
-				printf("errrrror");
+				printf("error : order invalid");
 				exit(1);
 			}
+			break ;
 		}
 		len--;
 	}

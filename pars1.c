@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:20:32 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/28 11:57:10 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:04:28 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**store_colors(char **strs)
 	err = 0;
 	i = 0;
 	d = 0;
-	colors = zyalloc(sizeof(char *) * 100);
+	colors = zyalloc(sizeof(char *) * ft_strslen(strs));
 	while (strs[i])
 	{
 		if (strs[i][0] == 'F' || strs[i][0] == 'C')
@@ -49,17 +49,16 @@ char	*get_c_color(char **colors)
 	char	*c_color;
 
 	i = 0;
-	c_color = zyalloc(12);
+	c_color = NULL;
 	while (colors[i])
 	{
 		j = 0;
 		e = 0;
 		if (colors[i][0] == 'C')
 		{
+			c_color = zyalloc(ft_strlen(colors[i]));
 			while (colors[i][j] == 'C' || colors[i][j] == ' ')
-			{
 				j++;
-			}
 			while (colors[i][j])
 				c_color[e++] = colors[i][j++];
 			break ;
@@ -78,17 +77,16 @@ char	*get_f_color(char **colors)
 	char	*c_color;
 
 	i = 0;
-	c_color = zyalloc(12);
+	c_color = NULL;
 	while (colors[i])
 	{
 		j = 0;
 		e = 0;
 		if (colors[i][0] == 'F')
 		{
+			c_color = zyalloc(ft_strlen(colors[i]));
 			while (colors[i][j] == 'F' || colors[i][j] == ' ')
-			{
 				j++;
-			}
 			while (colors[i][j])
 				c_color[e++] = colors[i][j++];
 			break ;

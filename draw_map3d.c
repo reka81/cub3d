@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:49:08 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/26 11:15:48 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:03:19 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	draw(t_ray *ray, int i, t_player *player, int wallheight)
 	int				y;
 	t_wall_clumper	*info;
 
+	y = 0;
 	info = malloc(sizeof(t_wall_clumper));
 	info->wall_bottom = (SCREEN_HEIGHT / 2) + (wallheight / 2);
 	info->wall_top = (SCREEN_HEIGHT / 2) - (wallheight / 2);

@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:04:47 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/25 10:27:20 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:02:42 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,4 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 		dest[i] = '\0';
 	}
 	return (ft_strlen(src));
-}
-
-static	int	count_strings(const char *s, char c)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] == c && s[i] != '\0')
-			i++;
-		if (s[i] != c && s[i] != '\0')
-			count++;
-		while (s[i] != c && s[i] != '\0')
-			i++;
-	}
-	return (count);
-}
-
-static void	*ft_free(char **strs, int i)
-{
-	while (i--)
-		free(strs[i]);
-	free(strs);
-	return (NULL);
 }

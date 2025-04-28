@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 22:48:36 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/28 11:48:47 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:24:56 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ char	**store_text(char **strs)
 	i = 0;
 	j = 0;
 	err = 0;
-	textures = (char **)zyalloc(sizeof(char *) * 1000);
+	textures = (char **)zyalloc(sizeof(char *) * ft_strslen(strs));
 	while (strs[i])
 	{
-		if (strs[i][0] == 'N' && strs[i][1] == 'O' || strs[i][0] == 'S'
-			&& strs[i][1] == 'O' || strs[i][0] == 'W' && strs[i][1] == 'E'
-				|| strs[i][0] == 'E' && strs[i][1] == 'A')
+		if ((strs[i][0] == 'N' && strs[i][1] == 'O') || (strs[i][0] == 'S'
+			&& strs[i][1] == 'O') || (strs[i][0] == 'W' && strs[i][1] == 'E')
+				|| (strs[i][0] == 'E' && strs[i][1] == 'A'))
 		{
 			textures[j] = strs[i];
 			j++;
@@ -84,7 +84,7 @@ void	allocating(t_strings **strings, t_pars **parsing, char **av)
 	*strings = zyalloc(sizeof(t_strings));
 	*parsing = zyalloc(sizeof(t_pars));
 	(*parsing)->fd = openfd(av[1]);
-	(*parsing)->strs = store_2d_array((*parsing)->fd);
+	(*parsing)->strs = store_2d_array((*parsing)->fd, av[1]);
 	check_invalid_inf((*parsing)->strs);
 	check_order((*parsing)->strs);
 	(*strings)->texturs = store_text((*parsing)->strs);

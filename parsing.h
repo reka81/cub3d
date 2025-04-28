@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:32:31 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/27 22:48:04 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:13:14 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_store_clrs
 }	t_store_clrs;
 
 int		openfd(char *str);
-char	**store_2d_array(int fd);
+char	**store_2d_array(int fd, char *str);
 void	check_invalid_inf(char **strs);
 void	check_order(char **strs);
 char	**store_colors(char **strs);
@@ -96,4 +96,10 @@ void	check_duplicate_textures(char **strs);
 void	check_duplicate_colors(char **strs);
 int		count_num_players(char **strs);
 void	check_duplicate_player(char **strs);
+void	check_correct_num_args(int ac);
+int		cheak_name(char *str);
+int		is_identifier_line(const char *line);
+int		is_empty_line(const char *line);
+int		virify_map_line(char *line);
+int		maybe_map_line(char *line);
 #endif
