@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 22:48:36 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/29 15:11:53 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:55:18 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	rgb_to_int(char **rgb_c_color)
 	int	g;
 	int	b;
 
-	g = atoi(rgb_c_color[1]);
-	r = atoi(rgb_c_color[0]);
-	b = atoi(rgb_c_color[2]);
+	g = ft_atoi(rgb_c_color[1]);
+	r = ft_atoi(rgb_c_color[0]);
+	b = ft_atoi(rgb_c_color[2]);
 	return ((r << 16) | (g << 8) | b);
 }
 

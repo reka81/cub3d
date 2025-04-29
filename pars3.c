@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:37:19 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/28 16:47:04 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:57:06 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	ft_isspace(char c)
 
 int	is_identifier_line(const char *line)
 {
-	if ((strncmp(line, "NO", 2) == 0 && ft_isspace(line[2]))
-		|| (strncmp(line, "SO", 2) == 0 && ft_isspace(line[2]))
-		|| (strncmp(line, "WE", 2) == 0 && ft_isspace(line[2]))
-		|| (strncmp(line, "EA", 2) == 0 && ft_isspace(line[2]))
+	if ((ft_strncmp(line, "NO", 2) == 0 && ft_isspace(line[2]))
+		|| (ft_strncmp(line, "SO", 2) == 0 && ft_isspace(line[2]))
+		|| (ft_strncmp(line, "WE", 2) == 0 && ft_isspace(line[2]))
+		|| (ft_strncmp(line, "EA", 2) == 0 && ft_isspace(line[2]))
 		|| (line[0] == 'F' && ft_isspace(line[1]))
 		|| (line[0] == 'C' && ft_isspace(line[1])))
 	{

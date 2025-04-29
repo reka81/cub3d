@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:32:31 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/29 15:49:07 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:53:15 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,5 @@ int		is_empty_line(const char *line);
 int		virify_map_line(char *line);
 int		maybe_map_line(char *line);
 void	err_check2(int e);
+int		ft_atoi(const char *str);
 #endif

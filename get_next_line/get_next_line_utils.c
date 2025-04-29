@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:45:43 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:56:10 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,19 @@ char	*ft_complete(char *dest, char *start, char *buffer)
 	}
 	dest[i + j] = '\0';
 	return (dest);
+}
+
+int	ft_strncmp(const char *str1, const char *str2, size_t num)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < num && (str1[i] || str2[i]))
+	{
+		if (str2[i] == str1[i])
+			i++;
+		else
+			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+	}
+	return (0);
 }

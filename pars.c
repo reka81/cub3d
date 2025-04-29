@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:10 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/29 15:39:57 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:55:09 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_num(char *c_color)
 {
 	int	color;
 
-	color = atoi(c_color);
+	color = ft_atoi(c_color);
 	if (color < 0 || color > 255)
 		return (1);
 	return (0);
