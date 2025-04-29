@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:18:27 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/29 17:51:05 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:55:13 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	check_map_surrounded(char **map)
 	x_y->rows = rows;
 	x_y->cols = cols;
 	flood_fill(map, start_x, start_x, x_y);
-	free_visited(rows);
 }
 
 void	allocating(t_strings **strings, t_pars **parsing, char **av)

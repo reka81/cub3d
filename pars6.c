@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:29 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/29 17:49:41 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:03:00 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,29 @@ void	error_exit(const char *msg)
 	exit(EXIT_FAILURE);
 }
 
-void	allocate_visited(int rows, int cols)
+void allocate_visited(int rows, int cols)
 {
 	int	i;
+	int	j;
+	int	total;
 
-	i = 0;
-	g_visited = malloc(rows * sizeof(int *));
-	if (!g_visited)
-		error_exit("Memory allocation failed.");
+	g_visited = zyalloc(rows * sizeof(int *));
+	g_visited[0] = zyalloc(rows * cols * sizeof(int));
+	i = 1;
 	while (i < rows)
 	{
-		g_visited[i] = calloc(cols, sizeof(int));
-		if (!g_visited[i])
-			error_exit("Memory allocation failed.");
+		g_visited[i] = g_visited[0] + (i * cols);
 		i++;
 	}
+	i = 0;
+	total = rows * cols;
+	while (i < total)
+	{
+		g_visited[0][i] = 0;
+        i++;
+    }
 }
+
 
 void	free_visited(int rows)
 {

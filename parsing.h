@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:32:31 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/29 17:49:13 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:54:56 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # include <string.h>
 # include <stdbool.h>
 
-# define MAX_ROWS 100
-# define MAX_COLS 100
 
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
