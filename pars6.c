@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:29 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/29 18:06:22 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:09:08 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	error_exit(const char *msg)
 void	allocate_visited(int rows, int cols)
 {
 	int	i;
-	int	j;
 	int	total;
 
 	g_visited = zyalloc(rows * sizeof(int *));
