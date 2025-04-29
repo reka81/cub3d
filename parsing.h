@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:32:31 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/29 17:54:56 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:06:30 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdbool.h>
-
 
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
