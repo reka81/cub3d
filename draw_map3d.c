@@ -6,11 +6,25 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:49:08 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/28 14:03:19 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:00:39 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	*ft_memset(void *b, int value, size_t len)
+{
+	unsigned char	*ptr;
+
+	ptr = (unsigned char *)b;
+	while (len > 0)
+	{
+		*ptr = value;
+		ptr++;
+		len--;
+	}
+	return (b);
+}
 
 uint32_t	find_color(t_ray *ray, int y,
 				t_wall_clumper *info, t_texture *texture)

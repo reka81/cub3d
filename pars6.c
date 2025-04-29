@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:29 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/29 15:39:48 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:01:01 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	check_map_surrounded(char **map)
 	}
 	if (start_x == -1 || start_y == -1)
 		error_exit("Player start 'N' not found in map.");
-	memset(g_visited, 0, sizeof(g_visited));
+	ft_memset(g_visited, 0, sizeof(g_visited));
 	flood_fill(map, start_x, start_y, rows);
 }
 

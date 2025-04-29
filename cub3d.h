@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:52:45 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/29 15:05:55 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:04:11 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,4 +181,5 @@ void		check_vertical_inter(t_player *player, t_ray *rays, int i);
 void		filling_textures(t_game *game);
 void		*zyalloc(long long size);
 int			its_a_wall3(double x, double y, t_player *player);
+
 #endif
