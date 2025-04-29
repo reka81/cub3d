@@ -12,10 +12,10 @@ OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) cub3d.h parsing.h
 	$(CC) $(FLAGS) -lmlx -framework OpenGL -framework AppKit $(OBJS) -o $(NAME)
 
-%.o:%.c
+%.o:%.c cub3d.h parsing.h
 	$(CC) $(FLAGS) -c $< -o $@
 clean :
 	$(RM) $(OBJS)

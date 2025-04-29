@@ -6,13 +6,13 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:29 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/29 16:01:01 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:54:32 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-bool	g_visited[MAX_ROWS][MAX_COLS];
+int	**g_visited;
 
 void	error_exit(const char *msg)
 {
@@ -20,19 +20,49 @@ void	error_exit(const char *msg)
 	exit(EXIT_FAILURE);
 }
 
-void	flood_fill(char **map, int x, int y, int rows)
+void	allocate_visited(int rows, int cols)
 {
-	if (x < 0 || y < 0 || x >= rows || y >= (int)ft_strlen(map[x]))
+	int	i;
+
+	i = 0;
+	g_visited = malloc(rows * sizeof(int *));
+	if (!g_visited)
+		error_exit("Memory allocation failed.");
+	while (i < rows)
+	{
+		g_visited[i] = calloc(cols, sizeof(int));
+		if (!g_visited[i])
+			error_exit("Memory allocation failed.");
+		i++;
+	}
+}
+
+void	free_visited(int rows)
+{
+	int	i;
+
+	i = 0;
+	while (i < rows)
+	{
+		free(g_visited[i]);
+		i++;
+	}
+	free(g_visited);
+}
+
+void	flood_fill(char **map, int x, int y, int rows, int cols)
+{
+	if (x < 0 || y < 0 || x >= rows || y >= ft_strlen(map[x]))
 		error_exit("Map is not closed (escaped bounds).");
 	if (map[x][y] == ' ' || map[x][y] == '\0')
 		error_exit("Map is not closed (hit space or invalid area).");
 	if (map[x][y] == '1' || g_visited[x][y])
 		return ;
-	g_visited[x][y] = true;
-	flood_fill(map, x + 1, y, rows);
-	flood_fill(map, x - 1, y, rows);
-	flood_fill(map, x, y + 1, rows);
-	flood_fill(map, x, y - 1, rows);
+	g_visited[x][y] = 1;
+	flood_fill(map, x + 1, y, rows, cols);
+	flood_fill(map, x - 1, y, rows, cols);
+	flood_fill(map, x, y + 1, rows, cols);
+	flood_fill(map, x, y - 1, rows, cols);
 }
 
 void	check_map_surrounded(char **map)
@@ -40,28 +70,48 @@ void	check_map_surrounded(char **map)
 	int	start_x;
 	int	start_y;
 	int	rows;
+	int	cols;
+	int	i;
 	int	j;
+	int	len;
 
+	i = 0;
+	rows = 0;
+	cols = 0;
 	start_x = -1;
 	start_y = -1;
-	rows = 0;
-	while (map[rows++])
+	while (map[rows])
+		rows++;
+	i = 0;
+	while (i < rows)
 	{
-		j = -1;
-		while (map[rows - 1][++j])
+		len = ft_strlen(map[i]);
+		if (len > cols)
+			cols = len;
+		i++;
+	}
+	allocate_visited(rows, cols);
+	i = 0;
+	while (i < rows)
+	{
+		j = 0;
+		while (map[i][j])
 		{
-			if (map[rows - 1][j] == 'N' || map[rows - 1][j] == 'E'
-				|| map[rows - 1][j] == 'W' || map[rows - 1][j] == 'S')
+			if (map[i][j] == 'N' || map[i][j] == 'E'
+				|| map[i][j] == 'W' || map[i][j] == 'S')
 			{
-				start_x = rows - 1;
+				start_x = i;
 				start_y = j;
 			}
+			j++;
 		}
+		i++;
 	}
 	if (start_x == -1 || start_y == -1)
 		error_exit("Player start 'N' not found in map.");
-	ft_memset(g_visited, 0, sizeof(g_visited));
-	flood_fill(map, start_x, start_y, rows);
+	flood_fill(map, start_x, start_y, rows, cols);
+	printf("Map is valid and fully enclosed by walls.\n");
+	free_visited(rows);
 }
 
 void	allocating(t_strings **strings, t_pars **parsing, char **av)
@@ -80,5 +130,4 @@ void	allocating(t_strings **strings, t_pars **parsing, char **av)
 	(*strings)->ea_texture = store_texture((*strings)->texturs, "EA");
 	(*strings)->we_texture = store_texture((*strings)->texturs, "WE");
 	(*parsing)->colors = store_colors((*parsing)->strs);
-	check_duplicate_colors((*parsing)->colors);
 }
