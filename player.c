@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 14:09:19 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/28 14:02:05 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 13:22:41 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int	its_a_wall(double x, double y, t_player *player)
 	int	check_x;
 	int	check_y;
 
-	check_x = x / 64;
-	check_y = y / 64;
+	check_x = (int)x / 64;
+	check_y = (int)y / 64;
+	if (check_x < 0 || check_y < 0 || check_x >= player->longest_row || check_y >= player->get_num_rows)
+        return 0;
 	if (check_y > (int)ft_strlen(player->staticarray[check_y]))
 		check_y = check_y - 1;
 	if (player->staticarray[check_y][check_x] == '1')

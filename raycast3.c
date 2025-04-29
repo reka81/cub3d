@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:44:36 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/26 10:53:24 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 12:23:23 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,16 @@ t_ray	*cast_rays(t_player *player)
 
 	i = 0;
 	column = 0;
-	rays = (t_ray *)zyalloc(sizeof(t_ray) * 64 * player->longest_row);
+	rays = (t_ray *)zyalloc(sizeof(t_ray) * SCREEN_WIDTH);
 	ray_angle = player->rotationangle + M_PI / 6.0;
-	while (i < 64 * player->longest_row)
+
+	while (i < SCREEN_WIDTH)
 	{
 		ray_angle = fmod(ray_angle, 2 * M_PI);
 		cast_rays2(rays, ray_angle, i);
 		ray_casting(player, i, rays);
 		player->rays = rays;
-		ray_angle -= (M_PI / (3.0 * 60 * player->longest_row));
+		ray_angle -= (M_PI / (3.0 * SCREEN_WIDTH));
 		i++;
 		column++;
 	}

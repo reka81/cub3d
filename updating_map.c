@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:11:54 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/26 10:49:08 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 12:23:09 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	update_map(t_player *player)
 	if (player->rotationangle > 2 * M_PI)
 		player->rotationangle -= 2 * M_PI;
 	ray = cast_rays(player);
-	wall_draw_3d(64 * player->longest_row, ray, player);
+	wall_draw_3d(SCREEN_WIDTH, ray, player);
 	player->rays = ray;
 	return (0);
 }
