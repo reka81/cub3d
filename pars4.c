@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:47:09 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/28 14:07:55 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:48:01 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,13 @@ char	*store_texture(char **textures, char *type)
 		i++;
 	}
 	return (texture);
+}
+
+void	err_check2(int e)
+{
+	if (e > 3)
+	{
+		printf("error : colore is bigger than range\n");
+		exit(1);
+	}
 }

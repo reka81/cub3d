@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:27:10 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/28 15:25:28 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:39:57 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,21 @@ t_strings	*retrieving(int ac, char **av)
 
 	check_correct_num_args(ac);
 	allocating(&strings, &parsing, av);
-	check_duplicate_colors(parsing->colors);
 	parsing->c_color = get_c_color(parsing->colors);
 	pars_color(parsing->c_color);
 	rgb_c_color = store_c_coloras2d(parsing->c_color);
 	check_range(rgb_c_color);
 	strings->c_color = rgb_to_int(rgb_c_color);
 	strings->map = store_map(parsing->strs);
+	check_new_line(strings->map);
 	check_duplicate_player(strings->map);
 	f_color = get_f_color(parsing->colors);
 	pars_color(f_color);
 	rgb_f_color = store_f_coloras2d(f_color);
+	check_range(rgb_f_color);
 	strings->f_color = rgb_to_int(rgb_f_color);
 	check_map_surrounded(strings->map);
 	strings->map = spaces_to_walls(strings->map);
 	only_6_char(strings->map);
-	check_new_line(strings->map);
 	return (strings);
 }

@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:28:37 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/28 15:08:08 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:13:20 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ int	num_lines(int fd)
 	i = 0;
 	line = get_next_line(fd);
 	i++;
-	if (line == NULL)
-	{
-		return (i);
-	}
 	while (line)
 	{
 		line = get_next_line(fd);
@@ -60,17 +56,17 @@ char	**store_2d_array(int fd, char *str)
 	int		i;
 
 	i = 0;
-	strs = zyalloc(sizeof(char *) * num_lines(fd) + 1);
+	strs = zyalloc(sizeof(char *) * (num_lines(fd) + 1));
 	close(fd);
 	fd = open(str, O_RDONLY);
 	line = get_next_line(fd);
-	if (line != NULL && line[0] != '\0')
-		strs[i++] = line;
+	strs[i] = line;
+	i++;
 	while (line)
 	{
 		line = get_next_line(fd);
-		if (line != NULL && line[0] != '\0')
-			strs[i++] = line;
+		strs[i] = line;
+		i++;
 	}
 	strs[i] = NULL;
 	return (strs);

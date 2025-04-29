@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:11:54 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/29 12:23:09 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 14:56:17 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	wall_draw_3d(int rays_num, t_ray *ray, t_player *player)
 void	update_map2(t_player *player,
 			double next_player_x, double next_player_y)
 {
-	if (!its_a_wall(next_player_x, next_player_y, player))
+	if (!its_a_wall3(next_player_x, next_player_y, player))
 	{
 		player->x = next_player_x;
 		player->y = next_player_y;

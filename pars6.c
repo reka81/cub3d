@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:29 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/28 14:08:39 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:39:48 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,23 @@ void	check_map_surrounded(char **map)
 		error_exit("Player start 'N' not found in map.");
 	memset(g_visited, 0, sizeof(g_visited));
 	flood_fill(map, start_x, start_y, rows);
+}
+
+void	allocating(t_strings **strings, t_pars **parsing, char **av)
+{
+	*strings = zyalloc(sizeof(t_strings));
+	*parsing = zyalloc(sizeof(t_pars));
+	(*parsing)->fd = openfd(av[1]);
+	(*parsing)->strs = store_2d_array((*parsing)->fd, av[1]);
+	check_invalid_inf((*parsing)->strs);
+	check_order((*parsing)->strs);
+	(*strings)->texturs = store_text((*parsing)->strs);
+	check_duplicate_textures((*strings)->texturs);
+	cheak_path((*strings)->texturs);
+	(*strings)->no_texture = store_texture((*strings)->texturs, "NO");
+	(*strings)->so_texture = store_texture((*strings)->texturs, "SO");
+	(*strings)->ea_texture = store_texture((*strings)->texturs, "EA");
+	(*strings)->we_texture = store_texture((*strings)->texturs, "WE");
+	(*parsing)->colors = store_colors((*parsing)->strs);
+	check_duplicate_colors((*parsing)->colors);
 }

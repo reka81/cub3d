@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:20:32 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/28 14:04:28 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:49:02 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**store_colors(char **strs)
 		}
 		i++;
 	}
-	if (err != 2)
+	if (err < 2)
 	{
 		printf("error ; color not found");
 		exit(1);
@@ -104,6 +104,7 @@ char	**store_c_coloras2d(char *c_color)
 	struct_fill(&storing);
 	while (c_color[storing->i])
 	{
+		err_check2(storing->e);
 		if (c_color[storing->i] >= '0' && c_color[storing->i] <= '9')
 		{
 			storing->rgb_f_color[storing->j][storing->e] = c_color[storing->i];
@@ -119,8 +120,7 @@ char	**store_c_coloras2d(char *c_color)
 	}
 	if (c_color[storing->i] == '\0')
 	{
-		storing->rgb_f_color[storing->j][storing->e] = '\0';
-		storing->j++;
+		storing->rgb_f_color[storing->j++][storing->e] = '\0';
 	}
 	storing->rgb_f_color[storing->j] = NULL;
 	return (storing->rgb_f_color);
@@ -133,6 +133,7 @@ char	**store_f_coloras2d(char *f_color)
 	struct_fill(&storing);
 	while (f_color[storing->i])
 	{
+		err_check2(storing->e);
 		if (f_color[storing->i] >= '0' && f_color[storing->i] <= '9')
 		{
 			storing->rgb_f_color[storing->j][storing->e] = f_color[storing->i];
@@ -148,8 +149,7 @@ char	**store_f_coloras2d(char *f_color)
 	}
 	if (f_color[storing->i] == '\0')
 	{
-		storing->rgb_f_color[storing->j][storing->e] = '\0';
-		storing->j++;
+		storing->rgb_f_color[storing->j++][storing->e] = '\0';
 	}
 	storing->rgb_f_color[storing->j] = NULL;
 	return (storing->rgb_f_color);

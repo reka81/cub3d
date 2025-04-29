@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:52:45 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/27 22:45:10 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:05:55 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ typedef struct s_garbage
 	void				*address;
 	struct s_garbage	*next;
 }	t_garbage;
+
+typedef struct s_wall_check
+{
+	int		check_x;
+	int		check_y;
+	double	corner_x[2];
+	double	corner_y[2];
+	int		i;
+	int		j;	
+}	t_wall_check;
 
 typedef struct s_ray
 {
@@ -170,4 +180,5 @@ void		ray_casting3(double horizontal_hit, double vertical_hit,
 void		check_vertical_inter(t_player *player, t_ray *rays, int i);
 void		filling_textures(t_game *game);
 void		*zyalloc(long long size);
+int			its_a_wall3(double x, double y, t_player *player);
 #endif

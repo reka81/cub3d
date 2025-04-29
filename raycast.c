@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 14:39:29 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/29 13:28:25 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:06:06 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	ray_casting2(t_ray *rays, int i)
 void	ray_casting3(double horizontal_hit, double vertical_hit,
 			t_ray *rays, int i)
 {
-	printf("%f--%f\n",horizontal_hit, vertical_hit);
 	if (horizontal_hit < vertical_hit)
 	{
 		rays[i].distance = horizontal_hit;

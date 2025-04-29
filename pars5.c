@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:13:05 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/28 16:45:55 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:10:36 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,18 @@ char	**store_map(char **strs)
 	e = 0;
 	while (strs[i])
 	{
-		if ((strs[i][0] != 'N' && strs[i][1] != 'O' && strs[i][0] != 'S'
-			&& strs[i][1] != 'O' && strs[i][0] != 'W' && strs[i][1] != 'E'
-			&& strs[i][0] != 'E' && strs[i][1] != 'A') && (strs[i][0] != 'F'
-			&& strs[i][0] != 'C' && strs [i][0] != '\0')
-			&& (if_only_spaces(strs[i]) == 1))
-			while (strs[i])
-				map[e++] = strs[i++];
-		if (strs[i] == NULL)
-			break ;
+		if (strs[i][0] && strs[i][1])
+		{
+			if ((strs[i][0] != 'N' && strs[i][1] != 'O' && strs[i][0] != 'S'
+				&& strs[i][1] != 'O' && strs[i][0] != 'W' && strs[i][1] != 'E'
+				&& strs[i][0] != 'E' && strs[i][1] != 'A') && (strs[i][0] != 'F'
+				&& strs[i][0] != 'C' && strs [i][0] != '\0')
+				&& (if_only_spaces(strs[i]) == 1))
+				while (strs[i])
+					map[e++] = strs[i++];
+			if (strs[i] == NULL)
+				break ;
+		}
 		i++;
 	}
 	map[e] = NULL;
