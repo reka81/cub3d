@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:17:29 by zaheddac          #+#    #+#             */
-/*   Updated: 2025/04/29 16:54:32 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:49:41 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,91 +43,21 @@ void	free_visited(int rows)
 
 	i = 0;
 	while (i < rows)
-	{
-		free(g_visited[i]);
-		i++;
-	}
-	free(g_visited);
+		free (g_visited[i++]);
+	free (g_visited);
 }
 
-void	flood_fill(char **map, int x, int y, int rows, int cols)
+void	flood_fill(char **map, int x, int y, t_coord *x_y)
 {
-	if (x < 0 || y < 0 || x >= rows || y >= ft_strlen(map[x]))
+	if (x < 0 || y < 0 || x >= x_y->rows || y >= (int)ft_strlen(map[x]))
 		error_exit("Map is not closed (escaped bounds).");
 	if (map[x][y] == ' ' || map[x][y] == '\0')
 		error_exit("Map is not closed (hit space or invalid area).");
 	if (map[x][y] == '1' || g_visited[x][y])
 		return ;
 	g_visited[x][y] = 1;
-	flood_fill(map, x + 1, y, rows, cols);
-	flood_fill(map, x - 1, y, rows, cols);
-	flood_fill(map, x, y + 1, rows, cols);
-	flood_fill(map, x, y - 1, rows, cols);
-}
-
-void	check_map_surrounded(char **map)
-{
-	int	start_x;
-	int	start_y;
-	int	rows;
-	int	cols;
-	int	i;
-	int	j;
-	int	len;
-
-	i = 0;
-	rows = 0;
-	cols = 0;
-	start_x = -1;
-	start_y = -1;
-	while (map[rows])
-		rows++;
-	i = 0;
-	while (i < rows)
-	{
-		len = ft_strlen(map[i]);
-		if (len > cols)
-			cols = len;
-		i++;
-	}
-	allocate_visited(rows, cols);
-	i = 0;
-	while (i < rows)
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'N' || map[i][j] == 'E'
-				|| map[i][j] == 'W' || map[i][j] == 'S')
-			{
-				start_x = i;
-				start_y = j;
-			}
-			j++;
-		}
-		i++;
-	}
-	if (start_x == -1 || start_y == -1)
-		error_exit("Player start 'N' not found in map.");
-	flood_fill(map, start_x, start_y, rows, cols);
-	printf("Map is valid and fully enclosed by walls.\n");
-	free_visited(rows);
-}
-
-void	allocating(t_strings **strings, t_pars **parsing, char **av)
-{
-	*strings = zyalloc(sizeof(t_strings));
-	*parsing = zyalloc(sizeof(t_pars));
-	(*parsing)->fd = openfd(av[1]);
-	(*parsing)->strs = store_2d_array((*parsing)->fd, av[1]);
-	check_invalid_inf((*parsing)->strs);
-	check_order((*parsing)->strs);
-	(*strings)->texturs = store_text((*parsing)->strs);
-	check_duplicate_textures((*strings)->texturs);
-	cheak_path((*strings)->texturs);
-	(*strings)->no_texture = store_texture((*strings)->texturs, "NO");
-	(*strings)->so_texture = store_texture((*strings)->texturs, "SO");
-	(*strings)->ea_texture = store_texture((*strings)->texturs, "EA");
-	(*strings)->we_texture = store_texture((*strings)->texturs, "WE");
-	(*parsing)->colors = store_colors((*parsing)->strs);
+	flood_fill(map, x + 1, y, x_y);
+	flood_fill(map, x - 1, y, x_y);
+	flood_fill(map, x, y + 1, x_y);
+	flood_fill(map, x, y - 1, x_y);
 }

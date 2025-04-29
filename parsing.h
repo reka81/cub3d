@@ -6,7 +6,7 @@
 /*   By: mettalbi <mettalbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:32:31 by mettalbi          #+#    #+#             */
-/*   Updated: 2025/04/29 16:04:23 by mettalbi         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:49:13 by mettalbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ typedef struct s_store_clrs
 	int		e;	
 }	t_store_clrs;
 
+typedef struct coord
+{
+	int	rows;
+	int	cols;
+}	t_coord;
+
 int		openfd(char *str);
 char	**store_2d_array(int fd, char *str);
 void	check_invalid_inf(char **strs);
@@ -104,5 +110,9 @@ int		virify_map_line(char *line);
 int		maybe_map_line(char *line);
 void	err_check2(int e);
 int		ft_atoi(const char *str);
-void	*ft_memset(void *b, int value, size_t len);;
+void	*ft_memset(void *b, int value, size_t len);
+void	allocate_visited(int rows, int cols);
+void	error_exit(const char *msg);
+void	flood_fill(char **map, int x, int y, t_coord *x_y);
+void	free_visited(int rows);
 #endif
